@@ -30,9 +30,9 @@ import React from 'react';
   <div>
     <h3 style={{ margin: '0 0 0.5rem 0', color: '#01579b' }}>/offers</h3>
     <p style={{ margin: 0, fontSize: '0.95rem' }}>
-      📌 <strong>Descrição:</strong> Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.<br />
-      🔍 <strong>Dica:</strong> Para obter uma oferta personalizada, utilize nossas <em>virtualizações</em>.<br />
-      🔗 <strong>Mais informações sobre virtualizações:</strong> <a href="https://exemplo.com/virtualizacoes" target="_blank" style={{ color: '#0288d1', fontWeight: 'bold' }}>clique aqui</a>.
+       <strong>Descrição:</strong> Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.<br />
+       <strong>Dica:</strong> Para obter uma oferta personalizada, utilize nossas <em>virtualizações</em>.<br />
+       <strong>Mais informações sobre virtualizações:</strong> <a href="https://exemplo.com/virtualizacoes" target="_blank" style={{ color: '#0288d1', fontWeight: 'bold' }}>clique aqui</a>.
     </p>
   </div>
 </div>
