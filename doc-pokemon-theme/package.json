@@ -7,7 +7,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "GIT_USER=Boddenberg USE_SSH=true docusaurus deploy",
+    "deploy": "set GIT_USER=Boddenberg&& set USE_SSH=true&& docusaurus deploy",
     "predeploy": "npm run build",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",

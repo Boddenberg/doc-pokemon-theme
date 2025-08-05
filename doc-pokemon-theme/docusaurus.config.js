@@ -119,4 +119,3 @@ const config = {
 };
 
 export default config;
-git
