@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[1903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/doc-pokemon-theme/pt-BR/blog","blogTitle":"Blog","authorsListPath":"/doc-pokemon-theme/pt-BR/blog/authors"}')}}]);
