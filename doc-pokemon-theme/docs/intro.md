@@ -2,46 +2,37 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+import React from 'react';
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## 💧 `/offers`
 
-## Getting Started
-
-Get started by **creating a new site**.
-
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
-
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+<div style={{
+  display: 'flex',
+  alignItems: 'center',
+  background: '#e0f7fa',
+  borderRadius: '12px',
+  padding: '1rem',
+  borderLeft: '8px solid #0288d1',
+  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+  marginTop: '1.5rem'
+}}>
+  <img
+    src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/007.png"
+    alt="Squirtle"
+    style={{
+      width: '100px',
+      height: '100px',
+      objectFit: 'contain',
+      marginRight: '1.5rem',
+      filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.2))'
+    }}
+  />
+  <div>
+    <h3 style={{ margin: '0 0 0.5rem 0', color: '#01579b' }}>/offers</h3>
+    <p style={{ margin: 0, fontSize: '0.95rem' }}>
+      📌 <strong>Descrição:</strong> Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.<br />
+      🔍 <strong>Dica:</strong> Para obter uma oferta personalizada, utilize nossas <em>virtualizações</em>.<br />
+      🔗 <strong>Mais informações sobre virtualizações:</strong> <a href="https://exemplo.com/virtualizacoes" target="_blank" style={{ color: '#0288d1', fontWeight: 'bold' }}>clique aqui</a>.
+    </p>
+  </div>
+</div>
