@@ -4,7 +4,14 @@ sidebar_position: 1
 
 import React from 'react';
 
-## 💧 `/offers`
+<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
+  <img 
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/2048px-Pok%C3%A9mon_Water_Type_Icon.svg.png" 
+    alt="Water Type Icon" 
+    style={{ width: '24px', height: '24px' }} 
+  />
+  <h2 style={{ margin: 0 }}>/offers</h2>
+</div>
 
 <div style={{
   display: 'flex',
