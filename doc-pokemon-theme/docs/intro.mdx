@@ -1,0 +1,433 @@
+---
+sidebar_position: 1
+hide_title: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/2048px-Pok%C3%A9mon_Water_Type_Icon.svg.png"
+    alt="Water Type Icon"
+    style={{ width: '24px', height: '24px' }}
+  />
+  <h2 style={{ margin: 0, color: 'var(--ifm-heading-color)' }}>/offers</h2>
+</div>
+
+<div style={{
+  display: 'flex',
+  alignItems: 'center',
+  background: '#e0f7fa',
+  borderRadius: '12px',
+  padding: '1rem',
+  borderLeft: '8px solid #0288d1',
+  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+  marginTop: '1.5rem',
+  color: '#000'
+}}>
+  <img
+    src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/007.png"
+    alt="Squirtle"
+    style={{
+      width: '100px',
+      height: '100px',
+      objectFit: 'contain',
+      marginRight: '1.5rem',
+      filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.2))'
+    }}
+  />
+  <div>
+    <h3 style={{ margin: '0 0 0.5rem 0', color: '#01579b' }}>/offers</h3>
+    <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: '1.5', color: '#000' }}>
+       <strong>Descrição:</strong> Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.<br />
+       <strong>Dica:</strong> Para obter uma oferta personalizada, utilize nossas <em>virtualizações</em>.<br />
+       <strong>Mais informações sobre virtualizações:</strong> <a href="https://letmegooglethat.com/?q=n%C3%A3o+%C3%A9+pra+clicar+ne+maluco" target="_blank" style={{ color: '#0288d1', fontWeight: 'bold' }}>clique aqui</a>.
+    </p>
+  </div>
+</div>
+
+<details style={{
+  marginTop: '1.5rem',
+  background: '#e0f7fa',
+  borderRadius: '14px',
+  padding: '1.5rem',
+  borderLeft: '6px solid #00acc1',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+  fontFamily: 'Segoe UI, sans-serif'
+}}>
+  <summary style={{
+    fontWeight: '600',
+    fontSize: '1.15rem',
+    color: '#006064',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem'
+  }}>
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/2048px-Pok%C3%A9mon_Water_Type_Icon.svg.png"
+      alt="Water icon"
+      width="22"
+      height="22"
+    />
+    Parâmetros e CURLs por ambiente
+  </summary>
+
+  <div style={{ marginTop: '1.2rem' }}>
+    <Tabs
+      defaultValue="parametros"
+      values={[
+        { label: 'Parâmetros', value: 'parametros' },
+        { label: 'Request - dev', value: 'desenvolvimento' },
+        { label: 'Request - hom', value: 'homologacao' },
+        { label: 'STS Token - dev', value: 'sts-token dev' },
+        { label: 'STS Token - hom', value: 'sts-token hom' }
+      ]}
+    >
+
+      <TabItem value="parametros">
+        <Tabs defaultValue="headers" values={[
+          { label: 'Headers', value: 'headers' },
+          { label: 'Body', value: 'body' }
+        ]}>
+          <TabItem value="headers">
+            <pre style={{
+              background: '#b2ebf2',
+              borderRadius: '10px',
+              padding: '1rem',
+              color: '#004d40',
+              fontSize: '0.9rem',
+              overflowX: 'auto',
+              boxShadow: 'inset 0 0 0 1px #4dd0e1',
+              marginTop: '1rem',
+              scrollbarColor: '#00acc1 #e0f7fa',
+              scrollbarWidth: 'thin'
+            }}>
+              <code>{`
+**Tipo** | **Nome**           | **Descrição**
+-------- | ------------------ | ------------------------------------------------------
+Header   | \`x-api-key\`        | Chave de API necessária para autenticação.
+Header   | \`x-correlation-id\` | ID de correlação para rastreamento de requisições.
+Header   | \`Authorization\`    | Token de autenticação utilizado para validar e autorizar a requisição.
+              `}</code>
+            </pre>
+          </TabItem>
+          <TabItem value="body">
+            <pre style={{
+              background: '#b2ebf2',
+              borderRadius: '10px',
+              padding: '1rem',
+              color: '#004d40',
+              fontSize: '0.9rem',
+              overflowX: 'auto',
+              boxShadow: 'inset 0 0 0 1px #4dd0e1',
+              marginTop: '1rem',
+              scrollbarColor: '#00acc1 #e0f7fa',
+              scrollbarWidth: 'thin'
+            }}>
+              <code>{`
+**Nome**                 | **Descrição**
+------------------------ | -----------------------------------------------------
+\`storeNumber\`           | Número da loja onde a oferta está sendo consultada.
+\`personIdentifier\`      | Identificador único do cliente (CPF ou ID).
+\`products\`              | Lista de produtos a serem consultados.
+\`familyProductCode\`     | Código da família do produto.
+\`operationalProductCode\`| Código operacional do produto.
+\`dn\`                    | Número de identificação do produto.
+\`segmentCode\`           | Código do segmento do produto.
+              `}</code>
+            </pre>
+          </TabItem>
+        </Tabs>
+      </TabItem>
+
+      {[
+        {
+          value: "desenvolvimento",
+          content: `
+curl --request POST \\
+--url https://api.dev.exemplo.com/ofertas/v1/consultar \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}' \\
+--data '{
+  "storeNumber": "000000000001",
+  "personIdentifier": "ID-do-cliente-aqui",
+  "products": [
+    {
+      "familyProductCode": 100,
+      "operationalProductCode": 20001
+    }
+  ]
+}'`
+        },
+        {
+          value: "homologacao",
+          content: `
+curl --request POST \\
+--url https://api.hml.exemplo.com/ofertas/v1/consultar \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}' \\
+--data '{
+  "storeNumber": "000000000002",
+  "personIdentifier": "ID-do-cliente-aqui",
+  "products": [
+    {
+      "familyProductCode": 100,
+      "operationalProductCode": 20001
+    }
+  ]
+}'`
+        },
+        {
+          value: "sts-token dev",
+          content: `
+curl --request POST \\
+--url https://sts.dev.exemplo.com/oauth2/token \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'Content-Type: application/x-www-form-urlencoded' \\
+--data-urlencode 'grant_type=client_credentials' \\
+--data-urlencode 'client_id={client-id}' \\
+--data-urlencode 'client_secret={client-secret}'`
+        },
+        {
+          value: "sts-token hom",
+          content: `
+curl --request POST \\
+--url https://sts.hml.exemplo.com/oauth2/token \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'Content-Type: application/x-www-form-urlencoded' \\
+--data-urlencode 'grant_type=client_credentials' \\
+--data-urlencode 'client_id={client-id}' \\
+--data-urlencode 'client_secret={client-secret}'`
+        }
+      ].map(({ value, content }) => (
+        <TabItem value={value} key={value}>
+          <pre style={{
+            background: '#b2ebf2',
+            borderRadius: '10px',
+            padding: '1rem',
+            color: '#004d40',
+            fontSize: '0.9rem',
+            overflowX: 'auto',
+            boxShadow: 'inset 0 0 0 1px #4dd0e1',
+            marginTop: '1rem',
+            scrollbarColor: '#00acc1 #e0f7fa',
+            scrollbarWidth: 'thin'
+          }}>
+            <code className="language-bash">{content}</code>
+          </pre>
+        </TabItem>
+      ))}
+
+    </Tabs>
+  </div>
+</details>
+
+import mistyPng from '@site/static/img/misty.gif';
+
+
+<div style={{
+  background: 'linear-gradient(145deg, #e0f7fa, #f1fdff)',
+  borderRadius: '24px',
+  padding: '2rem',
+  border: '4px solid #00acc1',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+  marginBottom: '3rem',
+}}>
+
+  <div style={{
+    background: 'linear-gradient(135deg, #b2ebf2, #e0f7fa)',
+    borderRadius: '16px',
+    padding: '1.5rem',
+    borderLeft: '6px solid #0288d1',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '2rem'
+  }}>
+    <div style={{
+      width: '140px',
+      marginRight: '1rem',
+      display: 'flex',
+      justifyContent: 'center',
+    }}>
+      <img
+        src={mistyPng}
+        alt="Misty"
+        style={{
+          height: '140px',
+          width: '110px',
+          objectFit: 'cover',
+        }}
+      />
+    </div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      paddingTop: '0.5rem',
+    }}>
+      <h2 style={{ margin: 0, color: '#003744' }}>Jornada para utilizar nossa API</h2>
+      <p style={{ margin: '0.2rem 0', color: '#004d61' }}>
+        Siga o passo a passo, ganhe experiência e acompanhe a Misty na evolução de seu Pokémon!
+      </p>
+    </div>
+  </div>
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'space-around',
+  gap: '1rem',
+  marginBottom: '2rem',
+  flexWrap: 'wrap'
+}}>
+  {[
+    {
+      name: 'Squirtle',
+      level: 'Level 1: Registrando o escopo no STS',
+      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif',
+      id: 'level-squirtle'
+    },
+    {
+      name: 'Wartortle',
+      level: 'Level 2: Parametrizando o Produto',
+      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/8.gif',
+      id: 'level-wartortle'
+    },
+    {
+      name: 'Blastoise',
+      level: 'Level 3: Criando e resgatando ofertas',
+      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/9.gif',
+      id: 'level-blastoise'
+    }
+  ].map((item, index) => (
+    <a
+      key={index}
+      href={`#${item.id}`}
+      style={{
+        textDecoration: 'none',
+        textAlign: 'center',
+        borderRadius: '14px',
+        background: '#e0f7fa',
+        padding: '1rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        transition: 'all 0.3s ease',
+        width: '200px',
+        color: '#003744'
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = 'scale(1.05)';
+        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+      }}
+    >
+      <h4 style={{ marginBottom: '0.5rem', color: '#004d61' }}>{item.name}</h4>
+      <img
+        src={item.gif}
+        alt={item.name}
+        style={{
+          width: '100px',
+          height: '100px',
+          marginBottom: '0.5rem'
+        }}
+      />
+      <p style={{ fontSize: '0.9rem', margin: 0 }}>{item.level}</p>
+    </a>
+  ))}
+</div>
+
+  {[
+    {
+      id: 'level-squirtle',
+      title: 'Level 1: Squirtle - Registrando o escopo no STS',
+      description: (
+        <>
+          Antes de fazer qualquer chamada, você precisa registrar o escopo da sua aplicação no STS.
+          <br />É como capturar seu primeiro Pokémon — sem isso, você nem entra na rota!
+          <br /><a href="#">Se você é um Mestre Pokémon iniciante, clique aqui para entender melhor.</a>
+        </>
+      ),
+      color: '#dff7f9',
+      borderColor: '#007c91',
+      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif'
+    },
+    {
+      id: 'level-wartortle',
+      title: 'Level 2: Wartortle – Parametrizando o Produto',
+      description: (
+        <>
+          Agora que você já consegue se autenticar, é hora de garantir que os produtos estão corretamente configurados.
+          <br />Assim como Wartortle, sua estrutura precisa estar preparada!
+          <br /><a href="#">Clique aqui para mais detalhes sobre esse processo.</a>
+        </>
+      ),
+      color: '#e6fafd',
+      borderColor: '#006064',
+      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/8.gif'
+    },
+    {
+      id: 'level-blastoise',
+      title: 'Level 3: Blastoise – Criando e resgatando ofertas',
+      description: (
+        <>
+          Chegou a hora de mostrar seu poder! Com tudo pronto, envie requisições e crie ofertas poderosas.
+          <br />Blastoise não brinca em serviço — e você também não!
+          <br /><a href="#">Confira os exemplos de chamadas nesta seção.</a>
+        </>
+      ),
+      color: '#f2feff',
+      borderColor: '#004d61',
+      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/9.gif'
+    }
+  ].map((block, index) => (
+    <div id={block.id} key={index} style={{
+      scrollMarginTop: '80px',
+      background: block.color,
+      borderRadius: '16px',
+      padding: '1.5rem',
+      borderLeft: `6px solid ${block.borderColor}`,
+      marginBottom: '2rem',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+      display: 'flex',
+      gap: '1rem',
+      alignItems: 'center',
+      color: '#002f3d'
+    }}>
+      <img
+        src={block.gif}
+        alt={block.title}
+        style={{ width: '80px', height: '80px' }}
+      />
+      <div>
+        <h3 style={{ color: '#003744' }}>{block.title}</h3>
+        <p>{block.description}</p>
+      </div>
+    </div>
+  ))}
+
+  <div style={{
+    background: 'linear-gradient(135deg, #d0f4f9, #ffffff)',
+    borderRadius: '16px',
+    padding: '1.5rem',
+    textAlign: 'center',
+    border: '2px dashed #00acc1',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    marginBottom: '2rem'
+  }}>
+    <h3 style={{ color: '#003744' }}>Parabéns, Mestre Pokémon!</h3>
+    <p style={{ fontSize: '1rem', color: '#004d61' }}>
+      Você ajudou a Misty na sua jornada e agora tem um poderoso Blastoise ao seu lado.
+      <br />Continue explorando nossa API e domine todas as rotas do conhecimento!
+    </p>
+  </div>
+
+</div>
