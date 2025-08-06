@@ -7,8 +7,17 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import mistyPng from '@site/static/img/misty.gif';
 
-{/* Conteúdo da Jornada dentro da "tela" do Gameboy */}
 
+<div style={{
+  backgroundColor: '#2e2b6d',
+  borderRadius: '20px',
+  padding: '2rem',
+  maxWidth: '900px',
+  margin: '2rem auto',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+  position: 'relative',
+  border: '6px solid #1a1850'
+}}>
 
 <div style={{
   background: 'linear-gradient(145deg, #e0f7fa, #f1fdff)',
@@ -21,61 +30,46 @@ import mistyPng from '@site/static/img/misty.gif';
 
 
 
-<div style={{
-  background: 'linear-gradient(135deg, #b2ebf2, #e0f7fa)',
-  borderRadius: '16px',
-  padding: '0rem',
-  borderLeft: '6px solid #0288d1',
-  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: '2rem'
-}}>
-  {/* Misty image */}
   <div style={{
-    width: '140px',
-    marginRight: '-1.5rem',
+    background: 'linear-gradient(135deg, #b2ebf2, #e0f7fa)',
+    borderRadius: '16px',
+    padding: '0rem',
+    borderLeft: '6px solid #0288d1',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
     display: 'flex',
-    justifyContent: 'center',
-  }}>
-    <img
-      src={mistyPng}
-      alt="Misty"
-      style={{
-        height: '140px',
-        width: '110px',
-        objectFit: 'cover',
-      }}
-    />
-  </div>
-
-  {/* Text and water icon */}
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    paddingTop: '0.5rem',
+    alignItems: 'center',
+    marginBottom: '2rem'
   }}>
     <div style={{
+      width: '140px',
+      marginRight: '-1.5rem',
       display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
+      justifyContent: 'center',
     }}>
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/2048px-Pok%C3%A9mon_Water_Type_Icon.svg.png"
-        alt="Water icon"
+        src={mistyPng}
+        alt="Misty"
         style={{
-          width: '22px',
-          height: '22px',
+          height: '140px',
+          width: '110px',
+          objectFit: 'cover',
         }}
       />
-      <h2 style={{ margin: 0, color: '#003744' }}>/offers</h2>
     </div>
-    <p style={{ margin: '0.2rem 0', color: '#004d61' }}>
-      Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.
-    </p>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      paddingTop: '0.5rem',
+    }}>
+      <h2 style={{ margin: 0, color: '#003744' }}>/offers</h2>
+      <p style={{ margin: '0.2rem 0', color: '#004d61' }}>
+        Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.
+
+      </p>
+    </div>
   </div>
-</div>
+
 
 
 
@@ -435,7 +429,83 @@ curl --request POST \\
 </div>
 
 
+<div style={{
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  padding: '2rem 3rem',
+  backgroundColor: '#2e2b6d', // fundo estilo GameBoy
+  borderRadius: '16px',
+  maxWidth: '500px',
+  margin: '2rem auto'
+}}>
+  {/* D-pad (cruzinha) */}
+  <div style={{
+    position: 'relative',
+    width: '80px',
+    height: '80px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }}>
+    {/* Horizontal */}
+    <div style={{
+      position: 'absolute',
+      width: '70%',
+      height: '22%',
+      backgroundColor: '#222',
+      borderRadius: '4px',
+      border: '2px solid #111',
+      boxShadow: 'inset -2px -2px 4px rgba(255,255,255,0.15), inset 2px 2px 4px rgba(0,0,0,0.4)'
+    }} />
+    {/* Vertical */}
+    <div style={{
+      position: 'absolute',
+      width: '22%',
+      height: '70%',
+      backgroundColor: '#222',
+      borderRadius: '4px',
+      border: '2px solid #111',
+      boxShadow: 'inset -2px -2px 4px rgba(255,255,255,0.15), inset 2px 2px 4px rgba(0,0,0,0.4)'
+    }} />
+  </div>
+
+  {/* Botões A e B mais à direita */}
+  <div style={{
+    position: 'relative',
+    width: '100px',
+    height: '80px'
+  }}>
+    {/* Botão B */}
+    <div style={{
+      position: 'absolute',
+      top: '30px',
+      left: '10px',
+      width: '36px',
+      height: '36px',
+      backgroundColor: '#c94a78',
+      borderRadius: '50%',
+      border: '2px solid #802449',
+      boxShadow: 'inset -3px -3px 5px rgba(255,255,255,0.3), inset 3px 3px 5px rgba(0,0,0,0.4)',
+      transform: 'rotate(-10deg)'
+    }} title="B" />
+
+    {/* Botão A */}
+    <div style={{
+      position: 'absolute',
+      top: '0px',
+      right: '0px',
+      width: '36px',
+      height: '36px',
+      backgroundColor: '#c94a78',
+      borderRadius: '50%',
+      border: '2px solid #802449',
+      boxShadow: 'inset -3px -3px 5px rgba(255,255,255,0.3), inset 3px 3px 5px rgba(0,0,0,0.4)',
+      transform: 'rotate(-10deg)'
+    }} title="A" />
+  </div>
+</div>
 
 
 
-
+</div>
