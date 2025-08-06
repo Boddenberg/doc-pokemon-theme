@@ -7,8 +7,6 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import mistyPng from '@site/static/img/misty.gif';
 
-{/* Conteúdo da Jornada dentro da "tela" do Gameboy */}
-
 
 <div style={{
   background: 'linear-gradient(145deg, #e0f7fa, #f1fdff)',
@@ -31,7 +29,6 @@ import mistyPng from '@site/static/img/misty.gif';
   alignItems: 'center',
   marginBottom: '2rem'
 }}>
-  {/* Misty image */}
   <div style={{
     width: '140px',
     marginRight: '-1.5rem',
@@ -49,7 +46,6 @@ import mistyPng from '@site/static/img/misty.gif';
     />
   </div>
 
-  {/* Text and water icon */}
   <div style={{
     display: 'flex',
     flexDirection: 'column',
@@ -69,7 +65,7 @@ import mistyPng from '@site/static/img/misty.gif';
           height: '22px',
         }}
       />
-      <h2 style={{ margin: 0, color: '#003744' }}>/offers</h2>
+      <h2 style={{ margin: 0, color: '#003744' }}>POST /offers</h2>
     </div>
     <p style={{ margin: '0.2rem 0', color: '#004d61' }}>
       Verifica se o cliente possui um cartão pré-aprovado com base nas regras de elegibilidade.
@@ -78,72 +74,60 @@ import mistyPng from '@site/static/img/misty.gif';
 </div>
 
 
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '1.5rem',
+    marginBottom: '2rem',
+    flexWrap: 'wrap'
+  }}>
+    {["Squirtle", "Wartortle", "Blastoise"].map((name, idx) => {
+      const gifs = [7, 8, 9];
+      const levels = [
+        'Level 1: Registrando o escopo no STS',
+        'Level 2: Parametrizando o Produto',
+        'Level 3: Criando e resgatando ofertas'
+      ];
+      const ids = ["level-squirtle", "level-wartortle", "level-blastoise"];
+      return (
+        <a
+          key={name}
+          href={`#${ids[idx]}`}
+          style={{
+            textDecoration: 'none',
+            textAlign: 'center',
+            borderRadius: '14px',
+            background: '#e0f7fa',
+            padding: '1.25rem',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            width: '220px',
+            color: '#003744',
+            fontFamily: 'monospace',
+            fontWeight: 'bold'
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'scale(1.07)';
+            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+          }}
+        >
+          <h4 style={{ marginBottom: '0.5rem', color: '#004d61' }}>{name}</h4>
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${gifs[idx]}.gif`}
+            alt={name}
+            style={{ width: '100px', height: '100px', marginBottom: '0.5rem' }}
+          />
+          <p style={{ fontSize: '0.85rem', margin: 0 }}>{levels[idx]}</p>
+        </a>
+      )
+    })}
+  </div>
 
 
-<div style={{
-  display: 'flex',
-  justifyContent: 'space-around',
-  gap: '1rem',
-  marginBottom: '2rem',
-  flexWrap: 'wrap'
-}}>
-  {[
-    {
-      name: 'Squirtle',
-      level: 'Level 1: Registrando o escopo no STS',
-      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif',
-      id: 'level-squirtle'
-    },
-    {
-      name: 'Wartortle',
-      level: 'Level 2: Parametrizando o Produto',
-      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/8.gif',
-      id: 'level-wartortle'
-    },
-    {
-      name: 'Blastoise',
-      level: 'Level 3: Criando e resgatando ofertas',
-      gif: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/9.gif',
-      id: 'level-blastoise'
-    }
-  ].map((item, index) => (
-    <a
-      key={index}
-      href={`#${item.id}`}
-      style={{
-        textDecoration: 'none',
-        textAlign: 'center',
-        borderRadius: '14px',
-        background: '#e0f7fa',
-        padding: '1rem',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        transition: 'all 0.3s ease',
-        width: '200px',
-        color: '#003744'
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.transform = 'scale(1.05)';
-        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      }}
-    >
-      <h4 style={{ marginBottom: '0.5rem', color: '#004d61' }}>{item.name}</h4>
-      <img
-        src={item.gif}
-        alt={item.name}
-        style={{
-          width: '100px',
-          height: '100px',
-          marginBottom: '0.5rem'
-        }}
-      />
-      <p style={{ fontSize: '0.9rem', margin: 0 }}>{item.level}</p>
-    </a>
-  ))}
-</div>
 
 <div id="level-squirtle" style={{
   scrollMarginTop: '80px',
@@ -433,9 +417,3 @@ curl --request POST \\
   </div>
 
 </div>
-
-
-
-
-
-

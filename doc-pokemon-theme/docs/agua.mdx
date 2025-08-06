@@ -434,12 +434,11 @@ curl --request POST \\
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   padding: '2rem 3rem',
-  backgroundColor: '#2e2b6d', // fundo estilo GameBoy
+  backgroundColor: '#2e2b6d',
   borderRadius: '16px',
   maxWidth: '500px',
   margin: '2rem auto'
 }}>
-  {/* D-pad (cruzinha) */}
   <div style={{
     position: 'relative',
     width: '80px',
@@ -448,7 +447,6 @@ curl --request POST \\
     justifyContent: 'center',
     alignItems: 'center'
   }}>
-    {/* Horizontal */}
     <div style={{
       position: 'absolute',
       width: '70%',
@@ -458,7 +456,7 @@ curl --request POST \\
       border: '2px solid #111',
       boxShadow: 'inset -2px -2px 4px rgba(255,255,255,0.15), inset 2px 2px 4px rgba(0,0,0,0.4)'
     }} />
-    {/* Vertical */}
+
     <div style={{
       position: 'absolute',
       width: '22%',
@@ -470,13 +468,11 @@ curl --request POST \\
     }} />
   </div>
 
-  {/* Botões A e B mais à direita */}
   <div style={{
     position: 'relative',
     width: '100px',
     height: '80px'
   }}>
-    {/* Botão B */}
     <div style={{
       position: 'absolute',
       top: '30px',
@@ -490,7 +486,6 @@ curl --request POST \\
       transform: 'rotate(-10deg)'
     }} title="B" />
 
-    {/* Botão A */}
     <div style={{
       position: 'absolute',
       top: '0px',
