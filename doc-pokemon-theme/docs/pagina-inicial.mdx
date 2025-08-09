@@ -8,167 +8,170 @@ hide_table_of_contents: true
 import ash from '@site/static/img/ash.png';
 import mistyfoto from '@site/static/img/mistyfoto.png';
 
-<div style={{
-  background: 'linear-gradient(180deg, #e3f2fd 0%, #ffffff 100%)',
-  padding: '2rem 1.5rem',
-  borderRadius: '24px',
-  boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
-  fontFamily: '"Segoe UI", sans-serif',
-  maxWidth: '1200px',
-  margin: '0 auto'
-}}>
+<style>{`
+  :root {
+    --bg-grad: linear-gradient(135deg,#fce0d8 0%,#fce3ec 25%,#e7d7f8 50%,#d5e4fa 75%,#d6f4f9 100%);
+    --ink: #0d47a1;
+  }
 
-  <div style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '1rem',
-    fontSize: '2.4rem',
-    marginBottom: '1rem',
-    color: '#0d47a1',
-    fontWeight: 700,
-    textAlign: 'center',
-    flexWrap: 'wrap'
-  }}>
-    <img
-      src="https://img1.picmix.com/output/stamp/normal/6/8/0/2/2172086_89955.gif"
-      alt="Pokébola animada"
-      style={{ height: '44px' }}
-    />
-    <span>Squad de Ofertas e Necessidades</span>
+  .shell {
+    background: var(--bg-grad);
+    border-radius: 24px;
+    padding: 2rem 1.25rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero { display:grid; place-items:center; gap:.6rem; text-align:center; margin-bottom:.6rem; }
+  .heroTitle { display:inline-flex; align-items:center; gap:.6rem; font-size:clamp(1.8rem,2.8vw,2.4rem); color:var(--ink); font-weight:800; letter-spacing:.2px; }
+  .heroGif{
+    height: clamp(36px, 4.5vw, 56px);
+    width: auto;
+    image-rendering: pixelated;
+    border-radius: 8px;
+    animation: float 3.2s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+
+  .lead { font-size:1.05rem; color:#37474f; max-width:860px; margin:0 auto .9rem; line-height:1.6; }
+
+  .cards { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:1rem; margin:0 auto 2rem; max-width:1040px; align-items:stretch; }
+  @media (min-width: 720px) { .cards { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+
+  .card{
+    --bg:#fff;
+    --border:rgba(2,136,209,.22);
+    --tab-bg:#e0f2fe;
+    --tab-text:#0b3b66;
+
+    position:relative;
+    border-radius:22px;
+    background:var(--bg);
+    border:2px solid var(--border);
+    padding:4.25rem 1.25rem 1.25rem;
+    box-shadow: 0 10px 24px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.45);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    display:flex; flex-direction:column;
+    min-height:420px;
+  }
+  .card:hover{ transform:translateY(-6px) scale(1.01); box-shadow:0 16px 30px rgba(13,71,161,.18), inset 0 0 0 1px rgba(255,255,255,.5); }
+
+  .cardTab{
+    position:absolute; inset:0 10px auto 10px; top:10px;
+    height:48px;
+    border-radius:14px 14px 12px 12px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; letter-spacing:.6px; text-transform:uppercase;
+    background:var(--tab-bg);
+    color:var(--tab-text);
+    box-shadow: 0 6px 18px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.6);
+    border:1px solid rgba(0,0,0,.06);
+    user-select:none;
+  }
+
+  .card--produtos{
+    --bg:#e1f5fe;
+    --border:rgba(2,136,209,.35);
+    --tab-bg:linear-gradient(180deg,#cfefff,#e1f5fe);
+    --tab-text:#013a63;
+  }
+  .card--tecnologia{
+    --bg:#ede7f6;
+    --border:rgba(124,58,237,.35);
+    --tab-bg:linear-gradient(180deg,#d9c6ff,#f5f3ff);
+    --tab-text:#4c1d95;
+  }
+  .card--time{
+    --bg:#e8f5e9;
+    --border:rgba(34,197,94,.35);
+    --tab-bg:linear-gradient(180deg,#bbf7d0,#ecfdf5);
+    --tab-text:#065f46;
+  }
+
+  .sprite{height:140px; display:block; margin:.25rem auto .5rem; filter:drop-shadow(0 10px 10px rgba(0,0,0,.25)); transition:transform .25s ease;}
+  .card:hover .sprite{transform:translateY(-4px) rotate(-1.5deg);}
+  .cardTitle{margin:.25rem 0 .25rem; font-size:1.15rem; font-weight:700; color:#013a63;}
+  .card p{font-size:.96rem; color:#546e7a; line-height:1.55; margin:0 0 .9rem;}
+  .ctaRow{display:flex; justify-content:center; gap:.5rem; flex-wrap:wrap; margin-top:auto;}
+  .cta{font-size:.85rem; font-weight:700; letter-spacing:.3px; border-radius:10px; padding:.5rem .7rem; display:inline-flex; align-items:center; gap:.45rem; background:#eff6ff; border:1px solid rgba(14,165,233,.45); color:#0b3b66; text-decoration:none; transition:transform .2s ease, box-shadow .2s ease;}
+  .cta:hover{transform:translateY(-2px); box-shadow:0 8px 16px rgba(14,165,233,.22);}
+
+  .meta{margin-top:.75rem; text-align:center; font-size:.85rem; color:#78909c;}
+
+  .hero, .hero * {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .heroGif{
+    mix-blend-mode: multiply;
+    border-radius: 0;
+  }
+
+  .hero{ margin-bottom: .15rem !important; }
+  .lead{ margin: 0 auto .2rem !important; }
+`}</style>
+
+<div className="shell">
+  <div className="hero">
+    <div className="heroTitle">
+      <img
+        className="heroGif"
+        src="https://i0.wp.com/lordlibidan.com/wp-content/uploads/2019/03/Running-Pikachu-GIF.gif?resize=480%2C342&ssl=1"
+        alt="Pikachu correndo"
+      />
+      <span>Squad de Ofertas e Necessidades</span>
+    </div>
+    <p className="lead">
+      O time de <strong>Ofertas e Necessidades</strong> conecta cada cliente à solução financeira mais adequada ao seu momento, transformando dados em ofertas personalizadas que vão além do crédito tradicional
+    </p>
   </div>
 
-  <p style={{
-    fontSize: '1.1rem',
-    color: '#37474f',
-    maxWidth: '860px',
-    margin: '0 auto 2.5rem auto',
-    textAlign: 'center',
-    lineHeight: '1.6',
-  }}>
-    O time de <strong>Ofertas e Necessidades</strong> conecta cada cliente à solução financeira mais adequada ao seu momento, transformando dados em ofertas personalizadas que vão além do crédito tradicional.
-  </p>
-
-  <div style={{
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '1.5rem',
-    flexWrap: 'wrap',
-    marginBottom: '2.5rem',
-  }}>
-
-    <div style={{
-      background: '#e1f5fe',
-      borderRadius: '16px',
-      padding: '1.5rem',
-      width: '280px',
-      textAlign: 'center',
-      border: '2px solid #4fc3f7',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.04)',
-    }}>
-      <img
-        src="https://vignette2.wikia.nocookie.net/doblaje/images/b/bb/Brock_OS.png/revision/latest?cb=20161002060945&path-prefix=es"
-        alt="Brock"
-        style={{
-          height: '160px',
-          marginBottom: '1rem',
-          filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5))'
-        }}
-      />
-      <h3 style={{
-        margin: '0.5rem 0',
-        color: '#0277bd',
-        fontSize: '1.25rem',
-        fontWeight: '600',
-      }}>
-        Seção de Produtos
-      </h3>
-      <p style={{
-        fontSize: '0.95rem',
-        color: '#546e7a',
-        lineHeight: '1.5',
-      }}>
-        Acompanhe Brock e conheça toda a estratégia de ofertas voltada para atender às necessidades dos clientes de forma eficiente e personalizada.
+  <div className="cards">
+    <div className="card card--produtos" id="produtos" tabIndex={0}>
+      <div className="cardTab">Produtos</div>
+      <img src="https://vignette2.wikia.nocookie.net/doblaje/images/b/bb/Brock_OS.png/revision/latest?cb=20161002060945&path-prefix=es" alt="Brock" className="sprite" />
+      <h3 className="cardTitle">Seção de Produtos</h3>
+      <p>
+        Acompanhe <strong>Brock</strong> e conheça toda a estratégia de ofertas voltada para atender às necessidades dos clientes de forma eficiente e personalizada.
       </p>
+      <div className="ctaRow">
+        <a className="cta" href="#produtos">Ver endpoints</a>
+      </div>
     </div>
 
-    <div style={{
-      background: '#ede7f6',
-      borderRadius: '16px',
-      padding: '1.5rem',
-      width: '280px',
-      textAlign: 'center',
-      border: '2px solid #9575cd',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.04)',
-    }}>
-      <img
-        src={mistyfoto}
-        alt="Misty"
-        style={{
-          height: '160px',
-          marginBottom: '1rem',
-          filter: 'drop-shadow(0 10px 8px rgba(0, 0, 0, 0.5))'
-        }}
-      />
-      <h3 style={{
-        margin: '0.5rem 0',
-        color: '#6a1b9a',
-        fontSize: '1.25rem',
-        fontWeight: '600',
-      }}>
-        Seção de Tecnologia
-      </h3>
-      <p style={{
-        fontSize: '0.95rem',
-        color: '#616161',
-        lineHeight: '1.5',
-      }}>
-        Explore com Misty os serviços e APIs que sustentam nossas ofertas: saiba como integrar, implementar e evoluir soluções com eficiência.
+    <div className="card card--tecnologia" id="tecnologia" tabIndex={0}>
+      <div className="cardTab">Tecnologia</div>
+      <img src={mistyfoto} alt="Misty" className="sprite" />
+      <h3 className="cardTitle" style={{color:'#4a148c'}}>Seção de Tecnologia</h3>
+      <p>
+        Explore com <strong>Misty</strong> os serviços e APIs que sustentam nossas ofertas: saiba como integrar com nossos serviços, conheça nossa estrutura de dados e acompanhe nossa observabilidade.
       </p>
+      <div className="ctaRow">
+        <a className="cta" href="#tecnologia">Guia de Integração</a>
+        <a className="cta" href="#tecnologia">Observabilidade</a>
+      </div>
     </div>
 
-    <div style={{
-      background: '#e8f5e9',
-      borderRadius: '16px',
-      padding: '1.5rem',
-      width: '280px',
-      textAlign: 'center',
-      border: '2px solid #66bb6a',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.04)',
-    }}>
-      <img
-        src={ash}
-        alt="Ash"
-        style={{
-          height: '160px',
-          marginBottom: '1rem',
-          filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5))'
-        }}
-      />
-      <h3 style={{
-        margin: '0.5rem 0',
-        color: '#2e7d32',
-        fontSize: '1.25rem',
-        fontWeight: '600',
-      }}>
-        Conheça o time
-      </h3>
-      <p style={{
-        fontSize: '0.95rem',
-        color: '#455a64',
-        lineHeight: '1.5',
-      }}>
-        Descubra com Ash quem está por trás das soluções de ofertas e com quem você pode contar para alcançar os melhores resultados.
+    <div className="card card--time" id="time" tabIndex={0}>
+      <div className="cardTab">Time</div>
+      <img src={ash} alt="Ash" className="sprite" />
+      <h3 className="cardTitle" style={{color:'#1b5e20'}}>Conheça o time</h3>
+      <p>
+        Descubra com <strong>Ash</strong> quem está por trás das soluções, papéis e como acionar o time para dúvidas, testes e lançamentos.
       </p>
+      <div className="ctaRow">
+        <a className="cta" href="#time">Contatos</a>
+        <a className="cta" href="#time">Contribuir</a>
+      </div>
     </div>
   </div>
 
-  <div style={{
-    marginTop: '1rem',
-    textAlign: 'center',
-    fontSize: '0.85rem',
-    color: '#78909c',
-  }}>
+  <div className="meta">
     Última atualização em <strong>27 de ago. de 2024</strong> por <strong>Filipe Bodenberg Ribeiro</strong><br/>
     <em>(Simulated during dev for better perf)</em>
   </div>
