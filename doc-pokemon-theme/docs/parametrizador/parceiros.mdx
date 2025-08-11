@@ -1,0 +1,284 @@
+---
+sidebar_position: 4
+hide_title: true
+hide_table_of_contents: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+{/* GYM BAND · FOGO (foco no endpoint /partners) */}
+<div style={{
+  width:'100%',
+  background:'linear-gradient(135deg,#fff3e0,#fffaf4)',
+  border:'1px solid #ffcc80',
+  borderRadius:16,
+  boxShadow:'0 4px 14px rgba(230,81,0,.10)',
+  margin:'0 0 1rem 0',
+  padding:'1rem 1.25rem',
+  position:'relative', zIndex:0
+}}>
+  {/* Título + endpoint */}
+  <div style={{display:'grid',gridTemplateColumns:'1fr auto',alignItems:'center',gap:'1rem'}}>
+    <div style={{display:'flex',alignItems:'center',gap:'0.75rem'}}>
+      <img src="https://centiskor.ch/images/fire-type-logo.webp" alt="Fogo" width="72" height="72" />
+      <h1 style={{margin:0, color:'#c43e00', fontWeight:800}}>Parametrização de parceiros</h1>
+    </div>
+
+    <div style={{display:'flex',alignItems:'center',gap:10}}>
+      <span style={{
+        fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace',
+        fontSize:12, padding:'6px 10px', borderRadius:999,
+        background:'#ffe0b2', color:'#bf360c', border:'2px solid #ffcc80',
+        boxShadow:'inset 0 1px 0 #ffffffcc'
+      }}><strong>GET</strong></span>
+
+      <div style={{
+        display:'flex', alignItems:'center', gap:8,
+        padding:'8px 12px', borderRadius:14,
+        background:'#fff7ed',
+        border:'2px solid #ffb74d',
+        boxShadow:'0 0 0 4px rgba(255,183,77,.14), inset 0 1px 0 #ffffffcc'
+      }}>
+        <code style={{
+          fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace',
+          fontSize:15, color:'#bf360c', letterSpacing:.2
+        }}>/partners</code>
+
+        <button
+          title="Copiar endpoint"
+          onClick={()=>{try{navigator.clipboard?.writeText('/partners')}catch(e){}}}
+          style={{cursor:'pointer', border:'1px solid #ffcc80', borderRadius:8, background:'#fff3e0', padding:'4px 6px', lineHeight:0}}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display:'block'}}>
+            <path d="M9 9h9v9H9z" stroke="#e65100" strokeWidth="1.5" />
+            <path d="M6 6h9v9" stroke="#e65100" strokeWidth="1.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {/* Subtítulo */}
+  <div style={{display:'flex',alignItems:'center',gap:10, marginTop:'.75rem', marginLeft:84}}>
+    <span style={{width:10,height:34, borderRadius:6, background:'#ffb74d', boxShadow:'0 0 0 3px rgba(255,183,77,.18)'}} />
+    <div style={{
+      background:'linear-gradient(135deg,#ffecb3,#fff3e0)',
+      border:'1px solid #ffd180', borderRadius:12, padding:'8px 12px',
+      boxShadow:'inset 0 1px 0 #ffffffcc'
+    }}>
+      <strong style={{color:'#c43e00'}}>Bem-vindo ao Ginásio de Fogo</strong>
+      <span style={{marginLeft:8, color:'#e65100', opacity:.9}}>
+        defina <code>type</code> e <code>partnerId</code> para controlar a visibilidade de parceiros
+      </span>
+    </div>
+  </div>
+</div>
+
+{/* CONTEÚDO · TEMA LARANJA */}
+<div style={{
+  background:'linear-gradient(145deg,#fff7ed,#fffaf4)',
+  borderRadius:24, padding:'2rem', border:'4px solid #ffb74d',
+  boxShadow:'0 8px 24px rgba(0,0,0,.08)', marginTop:'1rem'
+}}>
+  {/* Cards */}
+  <div style={{display:'flex',justifyContent:'center',gap:'1.5rem',marginBottom:'2rem',flexWrap:'wrap'}}>
+    {[
+      { name:'Charmander', gif:4, id:'level-charmander', label:'Level 1: Escopo & STS' },
+      { name:'Charmeleon', gif:5, id:'level-charmeleon', label:'Level 2: Tipos & Regras' },
+      { name:'Charizard',  gif:6, id:'level-charizard',  label:'Level 3: Consumindo a API' },
+    ].map(({name,gif,id,label})=>(
+      <a key={id} href={`#${id}`} style={{
+        textDecoration:'none',textAlign:'center',borderRadius:14,background:'#fff3e0',
+        padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,.1)',transition:'transform .3s, box-shadow .3s',
+        width:220,color:'#e65100',fontFamily:'monospace',fontWeight:'bold'
+      }}
+        onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.06)';e.currentTarget.style.boxShadow='0 8px 18px rgba(0,0,0,.14)';}}
+        onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 2px 8px rgba(0,0,0,.1)';}}
+      >
+        <h4 style={{marginBottom:'.5rem',color:'#ef6c00'}}>{name}</h4>
+        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${gif}.gif`} alt={name} style={{width:96,height:96,marginBottom:'.5rem'}} />
+        <p style={{fontSize:'.85rem',margin:0}}>{label}</p>
+      </a>
+    ))}
+  </div>
+
+  {/* Level 1 */}
+  <div id="level-charmander" style={{
+    scrollMarginTop:80, background:'#fff6e9', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #ef6c00', marginBottom:'2rem', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', gap:'1rem', alignItems:'center', color:'#5d2a00'
+  }}>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" alt="Charmander" style={{width:80,height:80}} />
+    <div>
+      <h3 style={{color:'#e65100'}}>Level 1: Charmander — Escopo & Autenticação (STS)</h3>
+      <p style={{margin:0}}>Ative o escopo de parceiros e gere o token.</p>
+    </div>
+  </div>
+
+  {/* Level 2 */}
+  <div id="level-charmeleon" style={{
+    scrollMarginTop:80, background:'#fff9ef', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #ef6c00', marginBottom:'2rem', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', gap:'1rem', alignItems:'center', color:'#5d2a00'
+  }}>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/5.gif" alt="Charmeleon" style={{width:80,height:80}} />
+    <div>
+      <h3 style={{color:'#e65100'}}>Level 2: Charmeleon — Tipos & Regras</h3>
+      <p style={{margin:0}}>Defina <code>type</code>, <code>partnerId</code> e visibilidade por perfil.</p>
+    </div>
+  </div>
+
+  {/* Level 3 */}
+  <div id="level-charizard" style={{
+    scrollMarginTop:80, background:'#fffaf2', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #e65100', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', flexDirection:'column', gap:'1rem', color:'#5d2a00'
+  }}>
+    <div style={{display:'flex',alignItems:'center',gap:'1rem'}}>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/6.gif" alt="Charizard" style={{width:80,height:80}} />
+      <div>
+        <h3 style={{color:'#e65100'}}>Level 3: Charizard — Consumindo a API</h3>
+        <p style={{margin:0}}>Consulta de parametrizações de parceiros.</p>
+      </div>
+    </div>
+
+    <details
+      className="apiTabs"
+      style={{
+        background:'#ffedd6', borderRadius:14, padding:'1.5rem',
+        borderLeft:'6px solid #ffcc80', boxShadow:'0 2px 8px rgba(0,0,0,.1)',
+        "--accent":"#ffb74d", "--accent-strong":"#e65100",
+        "--text":"#5d2a00", "--muted":"#e65100",
+        "--pane-bg":"#fff7ed", "--pane-border":"#ffdec2",
+        "--chip-bg":"#fff3e0", "--chip-border":"#ffcc80"
+      }}
+    >
+      <summary style={{fontWeight:600,fontSize:'1.05rem',color:'var(--muted)',cursor:'pointer'}}>GET /partners — Parâmetros & Exemplos</summary>
+
+      <style>{`
+        .apiTabs .tabs { margin-top: .9rem; }
+        .apiTabs .tabs__list { gap: .5rem; flex-wrap: wrap; margin-bottom: .6rem; }
+        .apiTabs .tabs__item {
+          border-radius: 999px; padding: .45rem .9rem; border: 1px solid var(--chip-border);
+          background: var(--chip-bg); color: var(--muted); font-weight: 600;
+        }
+        .apiTabs .tabs__item--active {
+          background: var(--accent); color: #fff; border-color: var(--accent-strong);
+          box-shadow: 0 2px 8px rgba(230,81,0,.18);
+        }
+        .apiTabs .pane {
+          background: var(--pane-bg); border: 1px solid var(--pane-border);
+          border-radius: 12px; padding: 1rem; margin-top: .6rem;
+          box-shadow: inset 0 1px 0 #ffffffcc;
+        }
+        .apiTabs .niceTable {
+          width: 100%; border-collapse: collapse; overflow: hidden;
+          border-radius: 10px; border: 1px solid var(--pane-border);
+          table-layout: fixed;
+        }
+        .apiTabs .niceTable th {
+          text-align: left; background: #ffe9d6; color: var(--text);
+          font-weight: 700; padding: .65rem .8rem; border-bottom: 1px solid var(--pane-border);
+        }
+        .apiTabs .niceTable td { padding: .6rem .8rem; border-bottom: 1px solid #ffeede; vertical-align: top; }
+        .apiTabs .niceTable tr:nth-child(even) td { background: #fffaf4; }
+        .apiTabs .codeName { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .apiTabs .copyBtn {
+          margin-left: .5rem; border: 1px solid var(--chip-border); border-radius: 8px;
+          background: var(--chip-bg); padding: 2px 6px; cursor: pointer; color: var(--muted);
+        }
+        .apiTabs .copyBtn:hover { background:#fff; border-color: var(--accent); color:#c43e00; }
+        .apiTabs .codeBlock {
+          background: var(--pane-bg); border: 1px solid var(--pane-border);
+          border-radius: 12px; overflow: hidden; margin-top: .6rem;
+        }
+        .apiTabs .codeToolbar {
+          display: flex; justify-content: space-between; align-items: center;
+          padding: .5rem .75rem; background: #fff3e0; border-bottom: 1px solid var(--pane-border);
+        }
+        .apiTabs .codeToolbar .env { font-weight: 700; color: var(--muted); }
+        .apiTabs pre { margin: 0; padding: .85rem; font-size: .9rem; }
+      `}</style>
+
+      <div style={{marginTop:'1.2rem'}}>
+        <Tabs defaultValue="parametros" values={[
+          {label:'Parâmetros',value:'parametros'},
+          {label:'Request - dev',value:'dev'},
+          {label:'Request - hom',value:'hom'}
+        ]}>
+
+          {/* PARÂMETROS */}
+          <TabItem value="parametros">
+            <Tabs defaultValue="headers" values={[
+              {label:'Headers',value:'headers'},
+              {label:'Query',value:'query'}
+            ]}>
+              <TabItem value="headers">
+                <div className="pane">
+                  <table className="niceTable">
+                    <colgroup>
+                      <col style={{width:'120px'}} />
+                      <col style={{width:'220px'}} />
+                      <col />
+                    </colgroup>
+                    <thead><tr><th>Tipo</th><th>Nome</th><th>Descrição</th></tr></thead>
+                    <tbody>
+                      <tr><td>Header</td><td><span className="codeName">x-api-key</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-api-key')}>copiar</button></td><td>Chave de API.</td></tr>
+                      <tr><td>Header</td><td><span className="codeName">x-correlation-id</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-correlation-id')}>copiar</button></td><td>ID de correlação.</td></tr>
+                      <tr><td>Header</td><td><span className="codeName">Authorization</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('Authorization')}>copiar</button></td><td>Bearer token.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+
+              <TabItem value="query">
+                <div className="pane">
+                  <table className="niceTable">
+                    <colgroup>
+                      <col style={{width:'240px'}} />
+                      <col />
+                    </colgroup>
+                    <thead><tr><th>Nome</th><th>Descrição</th></tr></thead>
+                    <tbody>
+                      <tr><td><span className="codeName">partnerId</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('partnerId')}>copiar</button></td><td>(Opcional) Parceiro específico.</td></tr>
+                      <tr><td><span className="codeName">type</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('type')}>copiar</button></td><td>(Opcional) Tipo de parceiro.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+            </Tabs>
+          </TabItem>
+
+          {/* DEV / HOM */}
+          {[
+            { value:'dev', title:'Ambiente: DEV', content: `
+curl --request GET \\
+--url 'https://api.dev.exemplo.com/parametrizador/v1/partners?type=all' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() },
+            { value:'hom', title:'Ambiente: HOM', content: `
+curl --request GET \\
+--url 'https://api.hml.exemplo.com/parametrizador/v1/partners?type=all' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() }
+          ].map(({value,title,content})=>(
+            <TabItem value={value} key={value}>
+              <div className="codeBlock">
+                <div className="codeToolbar">
+                  <span className="env">{title}</span>
+                  <button className="copyBtn" onClick={()=>navigator.clipboard.writeText(content)}>copiar cURL</button>
+                </div>
+                <pre><code className="language-bash">{content}</code></pre>
+              </div>
+            </TabItem>
+          ))}
+        </Tabs>
+      </div>
+    </details>
+  </div>
+</div>

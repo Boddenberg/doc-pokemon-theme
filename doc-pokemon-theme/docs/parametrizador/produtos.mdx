@@ -1,0 +1,368 @@
+---
+sidebar_position: 3
+hide_title: true
+hide_table_of_contents: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+{/* GYM BAND · GRAMA (foco no endpoint /products, mais destaque) */}
+<div style={{
+  width:'100%',
+  background:'linear-gradient(135deg,#e8f5e9,#f1f8e9)',
+  border:'1px solid #a5d6a7',
+  borderRadius:16,
+  boxShadow:'0 4px 14px rgba(27,94,32,.10)',
+  margin:'0 0 1rem 0',
+  padding:'1rem 1.25rem',
+  position:'relative', zIndex:0
+}}>
+  {/* Linha 1: título + endpoint destacado */}
+  <div style={{display:'grid',gridTemplateColumns:'1fr auto',alignItems:'center',gap:'1rem'}}>
+    <div style={{display:'flex',alignItems:'center',gap:'0.75rem'}}>
+      <img
+        src="https://lh3.googleusercontent.com/ibr-fnrizmrDQGtfBDPmclzjvQJp4gL7PkGZaYWKZcFwJ6vEwm-Tv_A-ev0AaoqSo4DFTkph0rySgO3lpXZX6ZsPmp1Gn71oXHaWO41TyBufkQ"
+        alt="Ícone Grama" width="72" height="72"
+      />
+      <h1 style={{margin:0, color:'#0f4d1c', fontWeight:800}}>Parametrização de produtos</h1>
+    </div>
+
+    {/* Endpoint pill — mais contraste + copiar */}
+    <div style={{display:'flex',alignItems:'center',gap:10}}>
+      <span style={{
+        fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace',
+        fontSize:12, padding:'6px 10px', borderRadius:999,
+        background:'#c8e6c9', color:'#1b5e20', border:'2px solid #a5d6a7',
+        boxShadow:'inset 0 1px 0 #ffffffcc'
+      }}><strong>GET</strong></span>
+
+      <div style={{
+        display:'flex', alignItems:'center', gap:8,
+        padding:'8px 12px', borderRadius:14,
+        background:'#f4fbf5',
+        border:'2px solid #8bc34a',
+        boxShadow:'0 0 0 4px rgba(139,195,74,.12), inset 0 1px 0 #ffffffcc'
+      }}>
+        <code style={{
+          fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace',
+          fontSize:15, color:'#1b5e20', letterSpacing:.2
+        }}>/products</code>
+
+        {/* copiar */}
+        <button
+          title="Copiar endpoint"
+          onClick={()=>{try{navigator.clipboard?.writeText('/products')}catch(e){}}}
+          style={{
+            cursor:'pointer', border:'1px solid #a5d6a7', borderRadius:8,
+            background:'#e9f7ec', padding:'4px 6px', lineHeight:0
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               xmlns="http://www.w3.org/2000/svg" style={{display:'block'}}>
+            <path d="M9 9h9v9H9z" stroke="#2e7d32" strokeWidth="1.5" />
+            <path d="M6 6h9v9" stroke="#2e7d32" strokeWidth="1.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {/* Linha 2: destaque do subtítulo */}
+  <div style={{
+    display:'grid', gridTemplateColumns:'1fr', gap:'0.75rem', marginTop:'0.75rem'
+  }}>
+    <div style={{display:'flex',alignItems:'center',gap:10, marginLeft:84}}>
+      <span style={{
+        width:10,height:34, borderRadius:6, background:'#66bb6a',
+        boxShadow:'0 0 0 3px rgba(102,187,106,.18)'
+      }} />
+      <div style={{
+        background:'linear-gradient(135deg,#dcedc8,#e8f5e9)',
+        border:'1px solid #aed581', borderRadius:12, padding:'8px 12px',
+        boxShadow:'inset 0 1px 0 #ffffffcc'
+      }}>
+        <strong style={{color:'#1b5e20'}}>Bem-vindo ao Ginásio de Grama</strong>
+        <span style={{marginLeft:8, color:'#2e7d32', opacity:.9}}>
+          enfrente os pokémons tipo <code>grama</code> e obtenha a melhor parametrização para seus produtos
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{/* CONTEÚDO · TEMA VERDE */}
+<div style={{
+  background:'linear-gradient(145deg,#edf7ed,#f7fff7)',
+  borderRadius:24, padding:'2rem', border:'4px solid #66bb6a',
+  boxShadow:'0 8px 24px rgba(0,0,0,.08)', marginTop:'1rem'
+}}>
+  {/* Cards */}
+  <div style={{display:'flex',justifyContent:'center',gap:'1.5rem',marginBottom:'2rem',flexWrap:'wrap'}}>
+    {[
+      { name:'Bulbasaur', gif:1, id:'level-bulbasaur', label:'Level 1: Escopo & STS' },
+      { name:'Ivysaur',   gif:2, id:'level-ivysaur',   label:'Level 2: Catálogo & Campos' },
+      { name:'Venusaur',  gif:3, id:'level-venusaur',  label:'Level 3: Consumindo a API' },
+    ].map(({name,gif,id,label})=>(
+      <a key={id} href={`#${id}`} style={{
+        textDecoration:'none',textAlign:'center',borderRadius:14,background:'#e9f7ec',
+        padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,.1)',transition:'transform .3s, box-shadow .3s',
+        width:220,color:'#1b5e20',fontFamily:'monospace',fontWeight:'bold'
+      }}
+        onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.06)';e.currentTarget.style.boxShadow='0 8px 18px rgba(0,0,0,.14)';}}
+        onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 2px 8px rgba(0,0,0,.1)';}}
+      >
+        <h4 style={{marginBottom:'.5rem',color:'#2e7d32'}}>{name}</h4>
+        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${gif}.gif`}
+             alt={name} style={{width:96,height:96,marginBottom:'.5rem'}} />
+        <p style={{fontSize:'.85rem',margin:0}}>{label}</p>
+      </a>
+    ))}
+  </div>
+
+  {/* Level 1 */}
+  <div id="level-bulbasaur" style={{
+    scrollMarginTop:80, background:'#eaf7ee', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #2e7d32', marginBottom:'2rem', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', gap:'1rem', alignItems:'center', color:'#1b5e20'
+  }}>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+         alt="Bulbasaur" style={{width:80,height:80}} />
+    <div>
+      <h3 style={{color:'#1b5e20'}}>Level 1: Bulbasaur — Escopo & Autenticação (STS)</h3>
+      <p style={{margin:0}}>Ative o escopo do Parametrizador e gere o token.</p>
+    </div>
+  </div>
+
+  {/* Level 2 */}
+  <div id="level-ivysaur" style={{
+    scrollMarginTop:80, background:'#f0fbf3', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #2e7d32', marginBottom:'2rem', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', gap:'1rem', alignItems:'center', color:'#1b5e20'
+  }}>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif"
+         alt="Ivysaur" style={{width:80,height:80}} />
+    <div>
+      <h3 style={{color:'#1b5e20'}}>Level 2: Ivysaur — Catálogo & Campos</h3>
+      <p style={{margin:0}}>Garanta <code>segment</code>, <code>code</code> e taxonomias definidas.</p>
+    </div>
+  </div>
+
+  {/* Level 3 (embrulha o <details/>) */}
+  <div id="level-venusaur" style={{
+    scrollMarginTop:80, background:'#f6fdf7', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #1b5e20', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', flexDirection:'column', gap:'1rem', color:'#1b5e20'
+  }}>
+    <div style={{display:'flex',alignItems:'center',gap:'1rem'}}>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/3.gif"
+           alt="Venusaur" style={{width:80,height:80}} />
+      <div>
+        <h3 style={{color:'#1b5e20'}}>Level 3: Venusaur — Consumindo a API</h3>
+        <p style={{margin:0}}>Consulta de parametrizações de produtos.</p>
+      </div>
+    </div>
+
+    <details
+      className="apiTabs"
+      style={{
+        background:'#e9f7ec',
+        borderRadius:14,
+        padding:'1.5rem',
+        borderLeft:'6px solid #66bb6a',
+        boxShadow:'0 2px 8px rgba(0,0,0,.1)',
+        // tokens de tema (grama)
+        "--accent":"#66bb6a",
+        "--accent-strong":"#43a047",
+        "--text":"#1b5e20",
+        "--muted":"#2e7d32",
+        "--pane-bg":"#f4fbf5",
+        "--pane-border":"#c8e6c9",
+        "--chip-bg":"#e9f7ec",
+        "--chip-border":"#a5d6a7"
+      }}
+    >
+      <summary style={{fontWeight:600,fontSize:'1.05rem',color:'var(--muted)',cursor:'pointer'}}>
+        GET /products — Parâmetros & Exemplos
+      </summary>
+
+      {/* estilos locais das tabs/tabelas (ajuste de espaçamento das abas + largura total da tabela) */}
+      <style>{`
+        .apiTabs .tabs { margin-top: .9rem; }
+        .apiTabs .tabs__list { gap: .5rem; flex-wrap: wrap; margin-bottom: .6rem; }
+        .apiTabs .tabs__item {
+          border-radius: 999px; padding: .45rem .9rem; border: 1px solid var(--chip-border);
+          background: var(--chip-bg); color: var(--muted); font-weight: 600;
+        }
+        .apiTabs .tabs__item--active {
+          background: var(--accent); color: #fff; border-color: var(--accent-strong);
+          box-shadow: 0 2px 8px rgba(67,160,71,.18);
+        }
+        .apiTabs .pane {
+          background: var(--pane-bg); border: 1px solid var(--pane-border);
+          border-radius: 12px; padding: 1rem; margin-top: .6rem;
+          box-shadow: inset 0 1px 0 #ffffffcc;
+        }
+        .apiTabs .niceTable {
+          width: 100%; border-collapse: collapse; overflow: hidden;
+          border-radius: 10px; border: 1px solid var(--pane-border);
+          table-layout: fixed;   /* <— força a ocupar 100% sem sobrar bloco */
+        }
+        .apiTabs .niceTable th {
+          text-align: left; background: #e3f5e6; color: var(--text);
+          font-weight: 700; padding: .65rem .8rem; border-bottom: 1px solid var(--pane-border);
+        }
+        .apiTabs .niceTable td { padding: .6rem .8rem; border-bottom: 1px solid #e6f4e9; vertical-align: top; }
+        .apiTabs .niceTable tr:nth-child(even) td { background: #f8fdf9; }
+        .apiTabs .codeName { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .apiTabs .copyBtn {
+          margin-left: .5rem; border: 1px solid var(--chip-border); border-radius: 8px;
+          background: var(--chip-bg); padding: 2px 6px; cursor: pointer; color: var(--muted);
+        }
+        .apiTabs .copyBtn:hover { background:#f7fff7; border-color: var(--accent); color:#0f4d1c; }
+        .apiTabs .codeBlock {
+          background: var(--pane-bg); border: 1px solid var(--pane-border);
+          border-radius: 12px; overflow: hidden; margin-top: .6rem;
+        }
+        .apiTabs .codeToolbar {
+          display: flex; justify-content: space-between; align-items: center;
+          padding: .5rem .75rem; background: #eaf7ee; border-bottom: 1px solid var(--pane-border);
+        }
+        .apiTabs .codeToolbar .env { font-weight: 700; color: var(--muted); }
+        .apiTabs pre { margin: 0; padding: .85rem; font-size: .9rem; }
+      `}</style>
+
+      <div style={{marginTop:'1.2rem'}}>
+        <Tabs defaultValue="parametros" values={[
+          {label:'Parâmetros',value:'parametros'},
+          {label:'Request - dev',value:'dev'},
+          {label:'Request - hom',value:'hom'}
+        ]}>
+
+          {/* PARÂMETROS */}
+          <TabItem value="parametros">
+            <Tabs defaultValue="headers" values={[
+              {label:'Headers',value:'headers'},
+              {label:'Query',value:'query'}
+            ]}>
+              <TabItem value="headers">
+                <div className="pane">
+                  <table className="niceTable">
+                    {/* 3 colunas: Tipo (120px), Nome (220px), Descrição (auto) */}
+                    <colgroup>
+                      <col style={{width:'120px'}} />
+                      <col style={{width:'220px'}} />
+                      <col />
+                    </colgroup>
+                    <thead>
+                      <tr><th>Tipo</th><th>Nome</th><th>Descrição</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Header</td>
+                        <td>
+                          <span className="codeName">x-api-key</span>
+                          <button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-api-key')}>
+                            copiar
+                          </button>
+                        </td>
+                        <td>Chave de API.</td>
+                      </tr>
+                      <tr>
+                        <td>Header</td>
+                        <td>
+                          <span className="codeName">x-correlation-id</span>
+                          <button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-correlation-id')}>
+                            copiar
+                          </button>
+                        </td>
+                        <td>ID de correlação.</td>
+                      </tr>
+                      <tr>
+                        <td>Header</td>
+                        <td>
+                          <span className="codeName">Authorization</span>
+                          <button className="copyBtn" onClick={()=>navigator.clipboard.writeText('Authorization')}>
+                            copiar
+                          </button>
+                        </td>
+                        <td>Bearer token.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+
+              <TabItem value="query">
+                <div className="pane">
+                  <table className="niceTable">
+                    {/* 2 colunas: Nome (240px), Descrição (auto) */}
+                    <colgroup>
+                      <col style={{width:'240px'}} />
+                      <col />
+                    </colgroup>
+                    <thead>
+                      <tr><th>Nome</th><th>Descrição</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span className="codeName">code</span>
+                          <button className="copyBtn" onClick={()=>navigator.clipboard.writeText('code')}>
+                            copiar
+                          </button>
+                        </td>
+                        <td>(Opcional) Código do produto.</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span className="codeName">segment</span>
+                          <button className="copyBtn" onClick={()=>navigator.clipboard.writeText('segment')}>
+                            copiar
+                          </button>
+                        </td>
+                        <td>(Opcional) Segmento do produto.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+            </Tabs>
+          </TabItem>
+
+          {/* DEV / HOM com botão copiar */}
+          {[
+            { value:'dev', title:'Ambiente: DEV', content: `
+curl --request GET \\
+--url 'https://api.dev.exemplo.com/parametrizador/v1/products?segment=all' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() },
+            { value:'hom', title:'Ambiente: HOM', content: `
+curl --request GET \\
+--url 'https://api.hml.exemplo.com/parametrizador/v1/products?segment=all' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() }
+          ].map(({value,title,content})=>(
+            <TabItem value={value} key={value}>
+              <div className="codeBlock">
+                <div className="codeToolbar">
+                  <span className="env">{title}</span>
+                  <button className="copyBtn" onClick={()=>navigator.clipboard.writeText(content)}>
+                    copiar cURL
+                  </button>
+                </div>
+                <pre><code className="language-bash">{content}</code></pre>
+              </div>
+            </TabItem>
+          ))}
+        </Tabs>
+      </div>
+    </details>
+  </div>
+</div>  {/* fecha CONTEÚDO · TEMA VERDE */}

@@ -1,0 +1,389 @@
+---
+sidebar_position: 2
+hide_title: true
+hide_table_of_contents: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+{/* GYM BAND · ÁGUA (foco no endpoint /journeys) */}
+<div style={{
+  width:'100%',
+  background:'linear-gradient(135deg,#e0f7fa,#f1fdff)',
+  border:'1px solid #90caf9',
+  borderRadius:16,
+  boxShadow:'0 4px 14px rgba(13,71,161,.10)',
+  margin:'0 0 1rem 0',
+  padding:'1rem 1.25rem',
+  position:'relative', zIndex:0
+}}>
+  <div style={{display:'grid',gridTemplateColumns:'1fr auto',alignItems:'center',gap:'1rem'}}>
+    <div style={{display:'flex',alignItems:'center',gap:'0.75rem'}}>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/2048px-Pok%C3%A9mon_Water_Type_Icon.svg.png" alt="Água" width="72" height="72" />
+      <h1 style={{margin:0, color:'#0d47a1', fontWeight:800}}>Parametrização de jornadas</h1>
+    </div>
+
+    <div style={{display:'flex',alignItems:'center',gap:10}}>
+      <span style={{
+        fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace',
+        fontSize:12, padding:'6px 10px', borderRadius:999,
+        background:'#b3e5fc', color:'#0d47a1', border:'2px solid #90caf9',
+        boxShadow:'inset 0 1px 0 #ffffffcc'
+      }}><strong>GET</strong></span>
+
+      <div style={{
+        display:'flex', alignItems:'center', gap:8,
+        padding:'8px 12px', borderRadius:14,
+        background:'#f2feff',
+        border:'2px solid #00acc1',
+        boxShadow:'0 0 0 4px rgba(0,172,193,.14), inset 0 1px 0 #ffffffcc'
+      }}>
+        <code style={{
+          fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace',
+          fontSize:15, color:'#006064', letterSpacing:.2
+        }}>/journeys</code>
+
+        <button
+          title="Copiar endpoint"
+          onClick={()=>{try{navigator.clipboard?.writeText('/journeys')}catch(e){}}}
+          style={{cursor:'pointer', border:'1px solid #4dd0e1', borderRadius:8, background:'#e0f7fa', padding:'4px 6px', lineHeight:0}}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display:'block'}}>
+            <path d="M9 9h9v9H9z" stroke="#006064" strokeWidth="1.5" />
+            <path d="M6 6h9v9" stroke="#006064" strokeWidth="1.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div style={{display:'flex',alignItems:'center',gap:10, marginTop:'.75rem', marginLeft:84}}>
+    <span style={{width:10,height:34, borderRadius:6, background:'#00acc1', boxShadow:'0 0 0 3px rgba(0,172,193,.18)'}} />
+    <div style={{
+      background:'linear-gradient(135deg,#b2ebf2,#e0f7fa)',
+      border:'1px solid #4dd0e1', borderRadius:12, padding:'8px 12px',
+      boxShadow:'inset 0 1px 0 #ffffffcc'
+    }}>
+      <strong style={{color:'#006064'}}>Bem-vindo ao Ginásio de Água</strong>
+      <span style={{marginLeft:8, color:'#0d47a1', opacity:.9}}>
+        jornadas por coleção (<code>/journeys</code>) e por ID (<code>/journey/{'{journeyId}'}</code>)
+      </span>
+    </div>
+  </div>
+</div>
+
+<div style={{
+  background: 'linear-gradient(145deg, #e0f7fa, #f1fdff)',
+  borderRadius: 24, padding: '2rem', border: '4px solid #00acc1',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.08)', marginTop:'1rem'
+}}>
+  {/* Cards */}
+  <div style={{display:'flex',justifyContent:'center',gap:'1.5rem',marginBottom:'2rem',flexWrap:'wrap'}}>
+    {[
+      { name: 'Squirtle', gif: 7, id: 'level-squirtle', label: 'Level 1: Escopo & STS' },
+      { name: 'Wartortle', gif: 8, id: 'level-wartortle', label: 'Level 2: Pré-requisitos da Jornada' },
+      { name: 'Blastoise', gif: 9, id: 'level-blastoise', label: 'Level 3: Consumindo a API' },
+    ].map(({ name, gif, id, label }) => (
+      <a key={id} href={`#${id}`} style={{
+        textDecoration:'none',textAlign:'center',borderRadius:14,background:'#e0f7fa',
+        padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,.1)',transition:'transform .3s, box-shadow .3s',
+        width:220,color:'#003744',fontFamily:'monospace',fontWeight:'bold'
+      }}
+        onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.06)';e.currentTarget.style.boxShadow='0 8px 18px rgba(0,0,0,.14)';}}
+        onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 2px 8px rgba(0,0,0,.1)';}}
+      >
+        <h4 style={{marginBottom:'.5rem',color:'#004d61'}}>{name}</h4>
+        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${gif}.gif`} alt={name} style={{width:96,height:96,marginBottom:'.5rem'}} />
+        <p style={{fontSize:'.85rem',margin:0}}>{label}</p>
+      </a>
+    ))}
+  </div>
+
+  {/* Level 1 */}
+  <div id="level-squirtle" style={{
+    scrollMarginTop:80, background:'#dff7f9', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #007c91', marginBottom:'2rem', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', gap:'1rem', alignItems:'center', color:'#002f3d'
+  }}>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" alt="Squirtle" style={{width:80,height:80}} />
+    <div>
+      <h3 style={{color:'#003744'}}>Level 1: Squirtle — Escopo & Autenticação (STS)</h3>
+      <p style={{margin:0}}>Ative o escopo da aplicação no STS e gere um <em>Bearer token</em> válido.</p>
+    </div>
+  </div>
+
+  {/* Level 2 */}
+  <div id="level-wartortle" style={{
+    scrollMarginTop:80, background:'#e6fafd', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #006064', marginBottom:'2rem', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', gap:'1rem', alignItems:'center', color:'#002f3d'
+  }}>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/8.gif" alt="Wartortle" style={{width:80,height:80}} />
+    <div>
+      <h3 style={{color:'#003744'}}>Level 2: Wartortle — Pré-requisitos da Jornada</h3>
+      <p style={{margin:0}}>Defina <code>journeyId</code>, políticas de versão e filtros (status, paginação).</p>
+    </div>
+  </div>
+
+  {/* Level 3 */}
+  <div id="level-blastoise" style={{
+    scrollMarginTop:80, background:'#f2feff', borderRadius:16, padding:'1.5rem',
+    borderLeft:'6px solid #004d61', boxShadow:'0 4px 12px rgba(0,0,0,.1)',
+    display:'flex', flexDirection:'column', gap:'1rem', color:'#002f3d'
+  }}>
+    <div style={{display:'flex',alignItems:'center',gap:'1rem'}}>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/9.gif" alt="Blastoise" style={{width:80,height:80}} />
+      <div>
+        <h3 style={{color:'#003744'}}>Level 3: Blastoise — Consumindo a API</h3>
+        <p style={{margin:0}}>Endpoints de jornada com parâmetros e cURLs por ambiente.</p>
+      </div>
+    </div>
+
+    {/* /journey/{journeyId} */}
+    <details
+      className="apiTabs"
+      style={{
+        background:'#e0f7fa', borderRadius:14, padding:'1.5rem',
+        borderLeft:'6px solid #00acc1', boxShadow:'0 2px 8px rgba(0,0,0,.1)',
+        "--accent":"#00acc1", "--accent-strong":"#006064",
+        "--text":"#003744", "--muted":"#006064",
+        "--pane-bg":"#f2feff", "--pane-border":"#b2ebf2",
+        "--chip-bg":"#e0f7fa", "--chip-border":"#4dd0e1"
+      }}
+    >
+      <summary style={{fontWeight:600,fontSize:'1.05rem',color:'var(--muted)',cursor:'pointer'}}>GET /journey/{'{journeyId}'} — Parâmetros & Exemplos</summary>
+
+      <style>{`
+        .apiTabs .tabs { margin-top: .9rem; }
+        .apiTabs .tabs__list { gap: .5rem; flex-wrap: wrap; margin-bottom: .6rem; }
+        .apiTabs .tabs__item {
+          border-radius: 999px; padding: .45rem .9rem; border: 1px solid var(--chip-border);
+          background: var(--chip-bg); color: var(--muted); font-weight: 600;
+        }
+        .apiTabs .tabs__item--active {
+          background: var(--accent); color: #fff; border-color: var(--accent-strong);
+          box-shadow: 0 2px 8px rgba(0,172,193,.18);
+        }
+        .apiTabs .pane {
+          background: var(--pane-bg); border: 1px solid var(--pane-border);
+          border-radius: 12px; padding: 1rem; margin-top: .6rem;
+          box-shadow: inset 0 1px 0 #ffffffcc;
+        }
+        .apiTabs .niceTable {
+          width: 100%; border-collapse: collapse; overflow: hidden;
+          border-radius: 10px; border: 1px solid var(--pane-border);
+          table-layout: fixed;
+        }
+        .apiTabs .niceTable th {
+          text-align: left; background: #d9f6fb; color: var(--text);
+          font-weight: 700; padding: .65rem .8rem; border-bottom: 1px solid var(--pane-border);
+        }
+        .apiTabs .niceTable td { padding: .6rem .8rem; border-bottom: 1px solid #e6f7fb; vertical-align: top; }
+        .apiTabs .niceTable tr:nth-child(even) td { background: #f7feff; }
+        .apiTabs .codeName { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .apiTabs .copyBtn {
+          margin-left: .5rem; border: 1px solid var(--chip-border); border-radius: 8px;
+          background: var(--chip-bg); padding: 2px 6px; cursor: pointer; color: var(--muted);
+        }
+        .apiTabs .copyBtn:hover { background:#fff; border-color: var(--accent); color:#004d61; }
+        .apiTabs .codeBlock {
+          background: var(--pane-bg); border: 1px solid var(--pane-border);
+          border-radius: 12px; overflow: hidden; margin-top: .6rem;
+        }
+        .apiTabs .codeToolbar {
+          display: flex; justify-content: space-between; align-items: center;
+          padding: .5rem .75rem; background: #eafcff; border-bottom: 1px solid var(--pane-border);
+        }
+        .apiTabs .codeToolbar .env { font-weight: 700; color: var(--muted); }
+        .apiTabs pre { margin: 0; padding: .85rem; font-size: .9rem; }
+      `}</style>
+
+      <div style={{marginTop:'1.2rem'}}>
+        <Tabs defaultValue="parametros" values={[
+          {label:'Parâmetros',value:'parametros'},
+          {label:'Request - dev',value:'dev'},
+          {label:'Request - hom',value:'hom'}
+        ]}>
+
+          <TabItem value="parametros">
+            <Tabs defaultValue="headers" values={[
+              {label:'Headers',value:'headers'},
+              {label:'Path/Query',value:'path'}
+            ]}>
+              <TabItem value="headers">
+                <div className="pane">
+                  <table className="niceTable">
+                    <colgroup><col style={{width:'120px'}} /><col style={{width:'220px'}} /><col /></colgroup>
+                    <thead><tr><th>Tipo</th><th>Nome</th><th>Descrição</th></tr></thead>
+                    <tbody>
+                      <tr><td>Header</td><td><span className="codeName">x-api-key</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-api-key')}>copiar</button></td><td>Chave de API.</td></tr>
+                      <tr><td>Header</td><td><span className="codeName">x-correlation-id</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-correlation-id')}>copiar</button></td><td>ID de correlação.</td></tr>
+                      <tr><td>Header</td><td><span className="codeName">Authorization</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('Authorization')}>copiar</button></td><td>Bearer token.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+
+              <TabItem value="path">
+                <div className="pane">
+                  <table className="niceTable">
+                    <colgroup><col style={{width:'220px'}} /><col style={{width:'120px'}} /><col /></colgroup>
+                    <thead><tr><th>Nome</th><th>Local</th><th>Descrição</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><span className="codeName">journeyId</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('journeyId')}>copiar</button></td>
+                        <td>path</td>
+                        <td>Identificador da jornada.</td>
+                      </tr>
+                      <tr>
+                        <td><span className="codeName">includeHistory</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('includeHistory')}>copiar</button></td>
+                        <td>query</td>
+                        <td>(Opcional) histórico (true/false).</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+            </Tabs>
+          </TabItem>
+
+          {[
+            { value:'dev', title:'Ambiente: DEV', content: `
+curl --request GET \\
+--url 'https://api.dev.exemplo.com/parametrizador/v1/journey/{journeyId}?includeHistory=false' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() },
+            { value:'hom', title:'Ambiente: HOM', content: `
+curl --request GET \\
+--url 'https://api.hml.exemplo.com/parametrizador/v1/journey/{journeyId}?includeHistory=false' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() }
+          ].map(({value,title,content})=>(
+            <TabItem value={value} key={value}>
+              <div className="codeBlock">
+                <div className="codeToolbar">
+                  <span className="env">{title}</span>
+                  <button className="copyBtn" onClick={()=>navigator.clipboard.writeText(content)}>copiar cURL</button>
+                </div>
+                <pre><code className="language-bash">{content}</code></pre>
+              </div>
+            </TabItem>
+          ))}
+        </Tabs>
+      </div>
+    </details>
+
+    {/* /journeys */}
+    <details
+      className="apiTabs"
+      style={{
+        background:'#e0f7fa', borderRadius:14, padding:'1.5rem',
+        borderLeft:'6px solid #00acc1', boxShadow:'0 2px 8px rgba(0,0,0,.1)',
+        "--accent":"#00acc1", "--accent-strong":"#006064",
+        "--text":"#003744", "--muted":"#006064",
+        "--pane-bg":"#f2feff", "--pane-border":"#b2ebf2",
+        "--chip-bg":"#e0f7fa", "--chip-border":"#4dd0e1"
+      }}
+    >
+      <summary style={{fontWeight:600,fontSize:'1.05rem',color:'var(--muted)',cursor:'pointer'}}>GET /journeys — Parâmetros & Exemplos</summary>
+
+      {/* reaproveita os mesmos estilos da section acima */}
+      <style>{`
+        .apiTabs .tabs { margin-top: .9rem; }
+        .apiTabs .tabs__list { gap: .5rem; flex-wrap: wrap; margin-bottom: .6rem; }
+        .apiTabs .tabs__item {
+          border-radius: 999px; padding: .45rem .9rem; border: 1px solid var(--chip-border);
+          background: var(--chip-bg); color: var(--muted); font-weight: 600;
+        }
+        .apiTabs .tabs__item--active { background: var(--accent); color: #fff; border-color: var(--accent-strong); box-shadow: 0 2px 8px rgba(0,172,193,.18); }
+        .apiTabs .pane { background: var(--pane-bg); border: 1px solid var(--pane-border); border-radius: 12px; padding: 1rem; margin-top: .6rem; box-shadow: inset 0 1px 0 #ffffffcc; }
+        .apiTabs .niceTable { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 10px; border: 1px solid var(--pane-border); table-layout: fixed; }
+        .apiTabs .niceTable th { text-align: left; background: #d9f6fb; color: var(--text); font-weight: 700; padding: .65rem .8rem; border-bottom: 1px solid var(--pane-border); }
+        .apiTabs .niceTable td { padding: .6rem .8rem; border-bottom: 1px solid #e6f7fb; vertical-align: top; }
+        .apiTabs .niceTable tr:nth-child(even) td { background: #f7feff; }
+        .apiTabs .codeName { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .apiTabs .copyBtn { margin-left: .5rem; border: 1px solid var(--chip-border); border-radius: 8px; background: var(--chip-bg); padding: 2px 6px; cursor: pointer; color: var(--muted); }
+        .apiTabs .copyBtn:hover { background:#fff; border-color: var(--accent); color:#004d61; }
+        .apiTabs .codeBlock { background: var(--pane-bg); border: 1px solid var(--pane-border); border-radius: 12px; overflow: hidden; margin-top: .6rem; }
+        .apiTabs .codeToolbar { display: flex; justify-content: space-between; align-items: center; padding: .5rem .75rem; background: #eafcff; border-bottom: 1px solid var(--pane-border); }
+        .apiTabs .codeToolbar .env { font-weight: 700; color: var(--muted); }
+        .apiTabs pre { margin: 0; padding: .85rem; font-size: .9rem; }
+      `}</style>
+
+      <div style={{marginTop:'1.2rem'}}>
+        <Tabs defaultValue="parametros" values={[
+          {label:'Parâmetros',value:'parametros'},
+          {label:'Request - dev',value:'dev'},
+          {label:'Request - hom',value:'hom'}
+        ]}>
+          <TabItem value="parametros">
+            <Tabs defaultValue="headers" values={[
+              {label:'Headers',value:'headers'},
+              {label:'Query',value:'query'}
+            ]}>
+              <TabItem value="headers">
+                <div className="pane">
+                  <table className="niceTable">
+                    <colgroup><col style={{width:'120px'}} /><col style={{width:'220px'}} /><col /></colgroup>
+                    <thead><tr><th>Tipo</th><th>Nome</th><th>Descrição</th></tr></thead>
+                    <tbody>
+                      <tr><td>Header</td><td><span className="codeName">x-api-key</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-api-key')}>copiar</button></td><td>Chave de API.</td></tr>
+                      <tr><td>Header</td><td><span className="codeName">x-correlation-id</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('x-correlation-id')}>copiar</button></td><td>ID de correlação.</td></tr>
+                      <tr><td>Header</td><td><span className="codeName">Authorization</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('Authorization')}>copiar</button></td><td>Bearer token.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+
+              <TabItem value="query">
+                <div className="pane">
+                  <table className="niceTable">
+                    <colgroup><col style={{width:'240px'}} /><col /></colgroup>
+                    <thead><tr><th>Nome</th><th>Descrição</th></tr></thead>
+                    <tbody>
+                      <tr><td><span className="codeName">page</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('page')}>copiar</button></td><td>(Opcional) Página.</td></tr>
+                      <tr><td><span className="codeName">size</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('size')}>copiar</button></td><td>(Opcional) Tamanho.</td></tr>
+                      <tr><td><span className="codeName">status</span><button className="copyBtn" onClick={()=>navigator.clipboard.writeText('status')}>copiar</button></td><td>(Opcional) Filtrar por status.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </TabItem>
+            </Tabs>
+          </TabItem>
+
+          {[
+            { value:'dev', title:'Ambiente: DEV', content: `
+curl --request GET \\
+--url 'https://api.dev.exemplo.com/parametrizador/v1/journeys?page=0&size=20' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() },
+            { value:'hom', title:'Ambiente: HOM', content: `
+curl --request GET \\
+--url 'https://api.hml.exemplo.com/parametrizador/v1/journeys?page=0&size=20' \\
+--header 'Authorization: Bearer {token}' \\
+--header 'Content-Type: application/json' \\
+--header 'x-api-key: {sua-chave}' \\
+--header 'x-correlation-id: {id-de-correlacao}'`.trim() }
+          ].map(({value,title,content})=>(
+            <TabItem value={value} key={value}>
+              <div className="codeBlock">
+                <div className="codeToolbar">
+                  <span className="env">{title}</span>
+                  <button className="copyBtn" onClick={()=>navigator.clipboard.writeText(content)}>copiar cURL</button>
+                </div>
+                <pre><code className="language-bash">{content}</code></pre>
+              </div>
+            </TabItem>
+          ))}
+        </Tabs>
+      </div>
+    </details>
+  </div>
+</div>
