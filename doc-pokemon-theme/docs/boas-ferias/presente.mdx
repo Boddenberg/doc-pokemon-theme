@@ -1,0 +1,267 @@
+---
+sidebar_position: 1
+hide_title: true
+hide_table_of_contents: true
+---
+
+import React, { useState, useEffect } from 'react';
+
+export const CouponCopy = ({ code }) => {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (e) {
+      const el = document.getElementById('coupon-code');
+      if (el) {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    }
+  };
+
+  return (
+    <div className="coupon" role="group" aria-label="Cupom Zé Delivery">
+      <code id="coupon-code">{code}</code>
+      <button className="copy-btn" onClick={copy} aria-live="polite">
+        {copied ? 'Copiado!' : 'Copiar'}
+      </button>
+    </div>
+  );
+};
+
+export const PasswordGate = ({ children }) => {
+  const [ok, setOk] = useState(false);
+  const [pwd, setPwd] = useState('');
+  const [err, setErr] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const remembered = localStorage.getItem('gift_gate_ok') === '1';
+      if (remembered) setOk(true);
+    }
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (pwd.trim().toLowerCase() === 'squirtle') {
+      setOk(true);
+      if (typeof window !== 'undefined') localStorage.setItem('gift_gate_ok', '1');
+    } else {
+      setErr('Senha incorreta.');
+    }
+  };
+
+  const handleChange = (e) => {
+    setPwd(e.target.value);
+    setErr('');
+  };
+
+  if (ok) return children;
+
+  return (
+    <div className="gate-wrap">
+      <div className="gate-card" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+        <h1 id="gate-title">🔐 Acesso restrito</h1>
+        <p className="gate-sub">Digite a senha para ver o presente.</p>
+        <form onSubmit={handleSubmit} className="gate-form">
+          <input
+            type="password"
+            className="gate-input"
+            placeholder="senha"
+            autoFocus
+            value={pwd}
+            onChange={handleChange}
+            aria-label="Senha"
+          />
+          <button className="gate-btn" type="submit">Entrar</button>
+        </form>
+        {err && <div className="gate-err" role="alert">{err}</div>}
+        <p className="gate-tip">Dica: é o nome do seu pokémon starter preferido 🐢</p>
+      </div>
+    </div>
+  );
+};
+
+<style>{String.raw`
+  :root {
+    --bg-grad: linear-gradient(
+      135deg,
+      #fce0d8 0%,
+      #fce3ec 25%,
+      #e7d7f8 50%,
+      #d5e4fa 75%,
+      #d6f4f9 100%
+    );
+    --panel: #ffffff;
+    --ink: #0b1324;
+    --ink-subtle: #4b5563;
+    --accent: #fbbf24;
+    --accent-strong: #f59e0b;
+    --primary: #7c3aed;
+  }
+
+  .gift-shell {
+    background: var(--bg-grad);
+    border-radius: 24px;
+    padding: clamp(1.25rem, 2vw, 2rem);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .panel {
+    position: relative;
+    border-radius: 20px;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.72));
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 30px rgba(16,24,40,0.08);
+    overflow: hidden;
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1px;
+    border-radius: 22px;
+    background: conic-gradient(from 180deg at 50% 50%, #ffffff 0deg, #a78bfa 120deg, #fbbf24 240deg, #ffffff 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .badge-ze {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--accent);
+    color: #111827;
+    font-weight: 700;
+    padding: .5rem .85rem;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+    margin-bottom: .75rem;
+  }
+
+  .title {
+    margin: 0 0 .25rem 0;
+    font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .subtitle {
+    margin: 0 0 1.25rem 0;
+    color: var(--ink-subtle);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+  }
+
+  .coupon {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .coupon code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-size: clamp(1rem, 3vw, 1.125rem);
+    letter-spacing: 0.08em;
+    background: #111827;
+    color: #fff;
+    padding: .85rem 1rem;
+    border-radius: 12px;
+    user-select: all;
+    box-shadow: 0 6px 18px rgba(17,24,39,0.18);
+  }
+
+  .copy-btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    font-weight: 700;
+    background: linear-gradient(180deg, var(--primary), #6d28d9);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(124,58,237,0.25);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(124,58,237,0.35); }
+  .copy-btn:active { transform: translateY(0); filter: brightness(.96); }
+
+  .note {
+    margin-top: .25rem;
+    color: var(--ink-subtle);
+    font-size: .95rem;
+  }
+
+  .footer-line {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    color: var(--ink-subtle);
+    font-size: .9rem;
+  }
+
+  .gate-wrap {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    background: var(--bg-grad);
+    border-radius: 24px;
+    padding: 2rem 1.25rem;
+  }
+  .gate-card {
+    width: min(560px, 92vw);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(16,24,40,0.10);
+    text-align: center;
+  }
+  .gate-card h1 { margin: 0 0 .25rem 0; color: var(--ink); font-size: clamp(1.5rem, 4vw, 2rem); }
+  .gate-sub { margin: 0 0 1rem 0; color: var(--ink-subtle); }
+  .gate-form { display: flex; gap: .5rem; justify-content: center; }
+  .gate-input {
+    border-radius: 12px; border: 1px solid #e5e7eb; padding: .8rem 1rem; min-width: 0; width: 60%;
+    font-size: 1rem; box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
+  }
+  .gate-btn {
+    border: none; cursor: pointer; border-radius: 12px; padding: .8rem 1rem; font-weight: 700;
+    background: linear-gradient(180deg, var(--primary), #6d28d9); color: white;
+  }
+  .gate-err { margin-top: .75rem; color: #b91c1c; font-weight: 600; }
+  .gate-tip { margin-top: .5rem; color: var(--ink-subtle); font-size: .9rem; }
+`}</style>
+
+<PasswordGate>
+  <div className="gift-shell">
+    <div className="panel">
+      <div className="badge-ze">🍻 Zé Delivery</div>
+      <h1 className="title">boas férias, tech!</h1>
+      <p className="subtitle">
+        Pra começar o descanso do jeito certo: aqui vai um vale de <strong>R$100</strong> pra usar no app.
+      </p>
+
+      <CouponCopy code="IWEN8K7OABB274LPQOLSYQ3GA" />
+
+      <p className="note">Cole o código no checkout do app Zé Delivery e aproveite. Se der qualquer coisa, me chama! 😄</p>
+
+      <div className="footer-line"></div>
+    </div>
+  </div>
+</PasswordGate>
