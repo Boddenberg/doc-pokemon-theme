@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[3956],{3956:(e,c,a)=>{a.d(c,{createRadarServices:()=>k.f});var k=a(2852);a(8198)}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[5392],{5392:(e,c,h)=>{h.d(c,{createGitGraphServices:()=>k.b});var k=h(4087);h(8198)}}]);
