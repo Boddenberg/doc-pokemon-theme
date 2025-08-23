@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[8188],{38188:(e,c,k)=>{k.d(c,{createPieServices:()=>o.f});var o=k(19786);k(58198)}}]);

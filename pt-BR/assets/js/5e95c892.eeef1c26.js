@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[9647],{7121:(e,s,r)=>{r.r(s),r.d(s,{default:()=>d});r(96540);var c=r(34164),o=r(17559),n=r(45500),t=r(22831),u=r(79139),a=r(74848);function d(e){return(0,a.jsx)(n.e3,{className:(0,c.A)(o.G.wrapper.docsPages),children:(0,a.jsx)(u.A,{children:(0,t.v)(e.route.routes)})})}}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[8716],{8716:(e,c,k)=>{k.d(c,{createPacketServices:()=>o.$});var o=k(9811);k(8198)}}]);

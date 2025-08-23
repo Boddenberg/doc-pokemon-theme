@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[4504],{34504:(e,c,k)=>{k.d(c,{createTreemapServices:()=>o.d});var o=k(43758);k(58198)}}]);

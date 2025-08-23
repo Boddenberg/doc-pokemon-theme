@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdoc_pokemon_theme=self.webpackChunkdoc_pokemon_theme||[]).push([[2498],{2498:(e,c,t)=>{t.d(c,{createArchitectureServices:()=>h.S});var h=t(3009);t(8198)}}]);
