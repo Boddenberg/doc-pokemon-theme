@@ -16,9 +16,10 @@ export default function ElegibilidadePA() {
   const showToast = (msg) => {
     setToast(msg);
     if (toastTimer.current) clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(()=> setToast(''), 1800);
+    toastTimer.current = setTimeout(()=> setToast(''), 1600);
   };
 
+  /* --------------------------- DIAGRAMA (Mermaid) --------------------------- */
   const mermaidRender = String.raw`%%{init: {"sequence":{"showSequenceNumbers":true,"mirrorActors":false}}}%%
 sequenceDiagram
   title Elegibilidade PA
@@ -52,6 +53,7 @@ sequenceDiagram
   ElegibilidadePA->>MotorOfertas: Retorna {elegibilidadePA}
 `;
 
+  // Versão "texto puro" para copiar/colar
   const mermaidPlain = String.raw`sequenceDiagram
   title Elegibilidade PA
 
@@ -87,6 +89,7 @@ sequenceDiagram
   ElegibilidadePA->>MotorOfertas: Retorna {elegibilidadePA}
 `;
 
+  /* --------------------------- Drag-to-scroll --------------------------- */
   const onMouseDown = (e) => {
     const el = e.currentTarget;
     dragRef.current = {drag:true, sx: e.pageX + el.scrollLeft, sy: e.pageY + el.scrollTop};
@@ -102,6 +105,7 @@ sequenceDiagram
     el.scrollTop  = s.sy - e.pageY;
   };
 
+  /* --------------------------- Export helpers --------------------------- */
   const exportSVG = () => {
     const svg = wrapRef.current?.querySelector('svg');
     if (!svg) return;
@@ -111,6 +115,7 @@ sequenceDiagram
     const a = document.createElement('a');
     a.href = url; a.download = 'elegibilidade-pa.svg'; a.click();
     URL.revokeObjectURL(url);
+    showToast('SVG exportado ✓');
   };
 
   const exportPNG = async (scale=1) => {
@@ -143,18 +148,47 @@ sequenceDiagram
     a.href = pngUrl;
     a.download = scale === 2 ? 'elegibilidade-pa@2x.png' : 'elegibilidade-pa.png';
     a.click();
-  };
 
-  const copyMermaid = async () => {
-    try {
-      await navigator.clipboard.writeText(mermaidPlain);
-      showToast('Mermaid copiado ✓');
-    } catch {}
+    showToast(scale === 2 ? 'PNG HD exportado ✓' : 'PNG exportado ✓');
   };
 
   return (
     <>
+      {/* --------------------------- Estilos locais --------------------------- */}
       <style>{`
+        .page-intro {
+          display: grid;
+          gap: .75rem;
+          margin-bottom: 1rem;
+        }
+        .pill {
+          display:inline-flex; align-items:center; gap:.5rem;
+          padding:.35rem .6rem; border-radius:999px;
+          background: #eef7ff; color:#0d3b66; border:1px solid #cfe6ff;
+          font-weight:700; font-size:.85rem;
+        }
+        .grid-two {
+          display:grid;
+          grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+          gap: 1rem;
+          margin: 1rem 0;
+        }
+        .card {
+          background:#fff;
+          border:1px solid #eaeef4;
+          border-radius:14px;
+          padding:1rem;
+          box-shadow: 0 8px 16px rgba(16,24,40,.06);
+        }
+        .callout {
+          background: linear-gradient(145deg,#fff8e1,#fff);
+          border:1px solid #ffe082;
+          border-radius: 12px;
+          padding: .8rem 1rem;
+          color:#4e342e;
+        }
+        .checklist li { margin:.35rem 0; }
+
         .diagram-card {
           position: relative;
           background: linear-gradient(135deg,#e3f2fd 0%,#e8f5e9 50%,#fff3e0 100%);
@@ -162,6 +196,7 @@ sequenceDiagram
           padding: 1.25rem;
           box-shadow: 0 8px 24px rgba(0,0,0,.08);
           border: 1px solid rgba(13,71,161,.12);
+          margin-bottom: 1rem;
         }
         .diagram-frame {
           background: rgba(255,255,255,.75);
@@ -174,6 +209,7 @@ sequenceDiagram
         .diagram-frame svg { max-width: 100%; height: auto; }
         .diagram-actions {
           display: flex;
+          flex-wrap: wrap;
           justify-content: flex-end;
           gap: .5rem;
           margin-top: .75rem;
@@ -202,25 +238,56 @@ sequenceDiagram
           background: rgba(255,255,255,.85);
           border: 1px solid rgba(13,71,161,.2);
         }
-        .toast {
-          position: absolute;
-          right: 12px;
-          bottom: 12px;
+
+        /* Toast discreto, fixo no canto */
+        .toast-fixed{
+          position: fixed;
+          right: 16px;
+          bottom: 16px;
+          z-index: 60;
           padding: .45rem .7rem;
           border-radius: 999px;
-          background: rgba(29,35,50,.92);
-          color: #fff;
-          font-weight: 700;
-          font-size: .9rem;
-          box-shadow: 0 8px 22px rgba(0,0,0,.2);
+          background: rgba(28,32,48,.78);
+          backdrop-filter: blur(8px);
+          color: #f8fafc;
+          font-weight: 600;
+          font-size: .85rem;
+          border: 1px solid rgba(255,255,255,.12);
+          box-shadow: 0 10px 30px rgba(0,0,0,.18);
           opacity: 0;
-          transform: translateY(6px);
+          transform: translateY(6px) scale(.98);
           pointer-events: none;
-          transition: opacity .2s ease, transform .2s ease;
+          transition: opacity .18s ease, transform .18s ease;
         }
-        .toast[data-show="1"] { opacity: 1; transform: translateY(0); }
+        .toast-fixed[data-show="1"]{
+          opacity: .92;
+          transform: translateY(0) scale(1);
+        }
       `}</style>
 
+      {/* --------------------------- Contexto de negócio --------------------------- */}
+      <section className="page-intro">
+        <span className="pill">Visão de negócio • zero-tec</span>
+        <h1>Elegibilidade (PA)</h1>
+        <p>
+          A elegibilidade é a <b>checagem de bom-senso</b> que diz se faz sentido oferecer o produto PA para um cliente,
+          no contexto daquela <i>jornada</i> (canal/experiência). Ela previne ofertas irrelevantes e melhora taxa de conversão.
+        </p>
+      </section>
+
+      {/* --------------------------- O fluxo em 1 minuto --------------------------- */}
+      <div className="card">
+        <h2>O fluxo em 1 minuto</h2>
+        <ol>
+          <li><b>Temos o básico?</b> Conferimos se chegaram as informações mínimas da jornada, dos cartões e da renda.</li>
+          <li><b>Regras simples de bom-senso:</b> checamos se há renda suficiente e se o cliente <i>já</i> tem esse produto.</li>
+          <li><b>Confirmação de crédito:</b> perguntamos à Disponibilidade PUC se há crédito/limite para esse cliente.</li>
+          <li><b>Decisão final:</b> se aprovado e com limite suficiente, o cliente é <b>elegível</b>; senão, <b>não elegível</b>.</li>
+          <li><b>Ajuste de limite:</b> quando elegível, alinhamos o valor ao teto permitido pelo produto.</li>
+        </ol>
+      </div>
+
+      {/* --------------------------- Diagrama interativo --------------------------- */}
       <div className="diagram-card">
         <div
           ref={wrapRef}
@@ -233,17 +300,82 @@ sequenceDiagram
         >
           <Mermaid value={mermaidRender} />
         </div>
-
         <div className="diagram-actions">
           <button className="btn btn-primary" onClick={exportSVG}>Exportar SVG</button>
           <button className="btn btn-outline" onClick={()=>exportPNG(1)}>PNG</button>
           <button className="btn btn-outline" onClick={()=>exportPNG(2)}>PNG HD</button>
-          <button className="btn btn-outline" onClick={copyMermaid}>Copiar Mermaid</button>
+          <button className="btn btn-outline" onClick={async()=>{ await navigator.clipboard.writeText(mermaidPlain); showToast('Mermaid copiado ✓'); }}>Copiar Mermaid</button>
+        </div>
+      </div>
+
+      {/* --------------------------- O que precisamos e por quê --------------------------- */}
+      <div className="grid-two">
+        <div className="card">
+          <h2>Informações necessárias (e por quê)</h2>
+          <ul className="checklist">
+            <li><b>Quem é o cliente</b> (id): para localizar histórico e evitar duplicidades.</li>
+            <li><b>Qual conta</b> (id): o limite e as regras podem variar por conta/produto.</li>
+            <li><b>Parâmetros da jornada:</b> trazem o <i>mínimo</i> e o <i>máximo</i> de limite do produto nessa experiência (ex.: canal parceiro vs. app).</li>
+            <li><b>Lista de cartões do cliente:</b> impede oferecer algo que a pessoa já tem.</li>
+            <li><b>Renda do cliente:</b> garante capacidade de pagamento e evita ofertas inadequadas.</li>
+          </ul>
+          <div className="callout"><b>Esses itens não são “campo técnico”.</b> Eles existem para proteger o cliente e o negócio.</div>
         </div>
 
-        <div className="toast" data-show={toast ? '1' : '0'}>
-          {toast}
+        <div className="card">
+          <h2>Critérios de decisão (resumo)</h2>
+          <ul className="checklist">
+            <li><b>Faltou algum item essencial?</b> Não elegível.</li>
+            <li><b>Cliente já possui o produto?</b> Não elegível.</li>
+            <li><b>Renda insuficiente?</b> Não elegível.</li>
+            <li><b>PUC não aprovou ou limite menor que o mínimo?</b> Não elegível.</li>
+            <li><b>PUC aprovado e limite suficiente?</b> Elegível (ajuste ao teto se passar do máximo).</li>
+          </ul>
         </div>
+      </div>
+
+      {/* --------------------------- Exemplos narrados --------------------------- */}
+      <div className="card">
+        <h2>Exemplos rápidos</h2>
+        <details open>
+          <summary><b>Ana</b> tem renda de 2.500 e não possui PA</summary>
+          <p>Jornada exige renda mínima de 1.200. PUC aprova com limite de 2.000 (mínimo é 500, máximo 3.000). Resultado: <b>elegível</b> com limite 2.000.</p>
+        </details>
+        <details>
+          <summary><b>Bruno</b> já possui PA</summary>
+          <p>Mesmo aprovado na PUC, a oferta seria redundante. Resultado: <b>não elegível</b> por “produto existente”.</p>
+        </details>
+        <details>
+          <summary><b>Clara</b> tem renda 900</summary>
+          <p>A jornada exige 1.200 de renda mínima. Resultado: <b>não elegível</b> por “renda insuficiente”.</p>
+        </details>
+      </div>
+
+      {/* --------------------------- Dicas de comunicação --------------------------- */}
+      <div className="grid-two">
+        <div className="card">
+          <h2>Como explicar ao cliente</h2>
+          <ul className="checklist">
+            <li>Se elegível: “Boa notícia! Você pode contratar o PA com limite de até <i>R$X</i>.”</li>
+            <li>Se não elegível por renda: “Neste momento precisamos de uma renda um pouco maior para liberar o PA.”</li>
+            <li>Se já possui: “Parece que você já tem esse produto. Quer ajustar ou conhecer alternativas?”</li>
+            <li>Se limite insuficiente: “Hoje seu limite disponível está abaixo do mínimo para este produto.”</li>
+          </ul>
+        </div>
+        <div className="card">
+          <h2>Boas práticas</h2>
+          <ul className="checklist">
+            <li>Use mensagens <b>claras e empáticas</b> — sem jargões.</li>
+            <li>Evite reprocessar quando faltar dados essenciais; peça os dados primeiro.</li>
+            <li>Padronize os <i>motivos</i> (renda, produto existente, sem limite) para monitorar indicadores.</li>
+            <li>Revise os <b>limites mínimo/máximo</b> por jornada/canal periodicamente.</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* --------------------------- Toast --------------------------- */}
+      <div className="toast-fixed" data-show={toast ? '1' : '0'} role="status" aria-live="polite">
+        {toast || ''}
       </div>
     </>
   );

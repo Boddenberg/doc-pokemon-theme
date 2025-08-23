@@ -4,102 +4,183 @@ hide_title: true
 hide_table_of_contents: true
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import React from 'react';
+import Link from '@docusaurus/Link';
 
-<div style={{
-  background: 'linear-gradient(135deg,#e3f2fd 0%,#e8f5e9 50%,#fff3e0 100%)',
+export function Sprite({src, fallback, alt, ...imgProps}) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallback; }}
+      {...imgProps}
+    />
+  );
+}
+
+<section style={{
+  background: 'linear-gradient(135deg,#eef6ff 0%, #f1fbf2 50%, #fff4e6 100%)',
+  border: '1px solid #e9eef5',
   borderRadius: 24,
-  padding: '2rem',
-  boxShadow: '0 8px 24px rgba(0,0,0,.08)',
+  padding: 20,
+  maxWidth: 1200,
+  margin: '0 auto',
+  boxShadow: '0 8px 30px rgba(0,0,0,.04)'
 }}>
-
   <div style={{
-    background: '#ffffffb3',
-    backdropFilter: 'blur(6px)',
-    borderRadius: 16,
-    padding: '1.25rem 1.5rem',
-    border: '1px solid #e0e0e0',
     display: 'flex',
     alignItems: 'center',
-    gap: '0.75rem',
-    marginBottom: '1.25rem'
+    justifyContent: 'space-between',
+    marginBottom: 8
   }}>
-    <h2 style={{margin: 0, color: '#0d3b66'}}>Parametrizador</h2>
+    <h1 style={{margin: 0, fontSize: '1.7rem'}}>Parametrizador</h1>
+    <div style={{fontSize: '.95rem', opacity: .7}}>Jornadas • Produtos • Parceiros</div>
+  </div>
+
+  <div style={{fontSize: '1.05rem', lineHeight: 1.55, background: 'transparent', marginBottom: 8}}>
+    <strong>Parametrizador</strong> é um <strong>serviço</strong> que centraliza parametrizações de
+    <strong> Jornadas</strong>, <strong>Produtos</strong> e <strong>Parceiros</strong> e as entrega com
+    <strong> baixa latência</strong> e <strong>consistência</strong>. Ele <strong>consome</strong> o conteúdo do CMS,
+    <strong> padroniza</strong> e <strong>distribui</strong> os dados para os consumidores, com cache, validação de esquema,
+    sanitização de respostas e observabilidade.
+  </div>
+
+  <div style={{
+    height: 1,
+    background: 'linear-gradient(90deg, transparent, rgba(0,0,0,.08), transparent)',
+    margin: '10px 0 16px'
+  }} />
+
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+    background: 'rgba(238, 174, 255, .22)',
+    borderRadius: 14,
+    padding: 12,
+    marginBottom: 18
+  }}>
+    <Sprite
+      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/122.gif"
+      fallback="/img/pokemon/mr-mime.gif"
+      alt="Mr. Mime animado"
+      width="56"
+      height="56"
+      style={{imageRendering: 'pixelated', flex: '0 0 auto'}}
+    />
+    <div style={{lineHeight: 1.35}}>
+      <div style={{fontWeight: 800, marginBottom: 2}}>Dica do Mr. Mime</div>
+      <div>
+        <strong>CMS (Content Management System)</strong> é a plataforma onde o time de negócio cria e gerencia conteúdos
+        e <em> parametrizações</em> sem alterar código ou fazer deploy. É a <em>fonte da verdade</em> do Parametrizador.
+      </div>
+    </div>
+  </div>
+
+  <div style={{marginBottom: 10}}>
+    <div style={{fontSize: '1rem', fontWeight: 700, marginBottom: 4}}>
+      Escolha seu elemento favorito e explore a documentação técnica
+    </div>
+    <div style={{opacity: .8}}>
+      Cada parametrização possui exemplos, contratos e notas de uso. Clique para abrir.
+    </div>
   </div>
 
   <div style={{
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))',
-    gap: '1rem'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: 14
   }}>
-    {/* Jornadas (Squirtle) */}
-    <a href="./journeys" style={{
-      textDecoration: 'none',
-      borderRadius: 16,
-      padding: '1.25rem',
-      background: 'linear-gradient(145deg,#e1f5fe,#e3f2fd)',
-      border: '1px solid #90caf9',
-      color: '#0d47a1',
-      boxShadow: '0 4px 12px rgba(13,71,161,.12)',
-      transition: 'transform .2s ease, box-shadow .2s ease'
-    }}
-      onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.boxShadow='0 10px 20px rgba(13,71,161,.18)';}}
-      onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='0 4px 12px rgba(13,71,161,.12)';}}
+    <Link
+      to="./jornadas"
+      className="param-card"
+      style={{
+        textDecoration: 'none',
+        border: '1px solid #cae7ff',
+        background: 'linear-gradient(135deg,#eaf5ff,#dff0ff)',
+        borderRadius: 14,
+        padding: 14,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        boxShadow: '0 12px 30px rgba(15,76,129,.06)'
+      }}
     >
-      <div style={{display:'flex', alignItems:'center', gap:12}}>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" width="56" height="56" alt="Squirtle"/>
-        <div>
-          <h3 style={{margin:'0 0 .25rem'}}>Jornadas</h3>
-          <small>Parametrizações de jornadas (coleção e por ID).</small>
-        </div>
+      <Sprite
+        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif"
+        fallback="/img/pokemon/squirtle.png"
+        alt="Squirtle animado"
+        width="48"
+        height="48"
+        style={{imageRendering: 'pixelated'}}
+      />
+      <div>
+        <div style={{fontWeight: 800, fontSize: '1.12rem', color: '#124b7f'}}>Jornadas</div>
+        <div style={{opacity: .85}}>Parametrizações de jornadas (coleção e por ID).</div>
       </div>
-    </a>
+    </Link>
 
-    {/* Produtos (Bulbasaur) */}
-    <a href="./products" style={{
-      textDecoration: 'none',
-      borderRadius: 16,
-      padding: '1.25rem',
-      background: 'linear-gradient(145deg,#e8f5e9,#f1f8e9)',
-      border: '1px solid #a5d6a7',
-      color: '#1b5e20',
-      boxShadow: '0 4px 12px rgba(27,94,32,.12)',
-      transition: 'transform .2s ease, box-shadow .2s ease'
-    }}
-      onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.boxShadow='0 10px 20px rgba(27,94,32,.18)';}}
-      onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='0 4px 12px rgba(27,94,32,.12)';}}
+    <Link
+      to="./produtos"
+      className="param-card"
+      style={{
+        textDecoration: 'none',
+        border: '1px solid #cfead7',
+        background: 'linear-gradient(135deg,#e9f9f0,#dcf5e7)',
+        borderRadius: 14,
+        padding: 14,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        boxShadow: '0 12px 30px rgba(12,94,54,.06)'
+      }}
     >
-      <div style={{display:'flex', alignItems:'center', gap:12}}>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" width="56" height="56" alt="Bulbasaur"/>
-        <div>
-          <h3 style={{margin:'0 0 .25rem'}}>Produtos</h3>
-          <small>Parametrizações de produtos disponíveis.</small>
-        </div>
+      <Sprite
+        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+        fallback="/img/pokemon/bulbasaur.png"
+        alt="Bulbasaur animado"
+        width="48"
+        height="48"
+        style={{imageRendering: 'pixelated'}}
+      />
+      <div>
+        <div style={{fontWeight: 800, fontSize: '1.12rem', color: '#226b3a'}}>Produtos</div>
+        <div style={{opacity: .85}}>Parametrizações de produtos disponíveis.</div>
       </div>
-    </a>
+    </Link>
 
-    {/* Parceiros (Charmander) */}
-    <a href="./partners" style={{
-      textDecoration: 'none',
-      borderRadius: 16,
-      padding: '1.25rem',
-      background: 'linear-gradient(145deg,#fff3e0,#ffe0b2)',
-      border: '1px solid #ffcc80',
-      color: '#e65100',
-      boxShadow: '0 4px 12px rgba(230,81,0,.12)',
-      transition: 'transform .2s ease, box-shadow .2s ease'
-    }}
-      onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.boxShadow='0 10px 20px rgba(230,81,0,.18)';}}
-      onMouseLeave={e=>{e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='0 4px 12px rgba(230,81,0,.12)';}}
+    <Link
+      to="./parceiros"
+      className="param-card"
+      style={{
+        textDecoration: 'none',
+        border: '1px solid #ffd9c2',
+        background: 'linear-gradient(135deg,#ffefe3,#ffe6d4)',
+        borderRadius: 14,
+        padding: 14,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        boxShadow: '0 12px 30px rgba(139,64,17,.06)'
+      }}
     >
-      <div style={{display:'flex', alignItems:'center', gap:12}}>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" width="56" height="56" alt="Charmander"/>
-        <div>
-          <h3 style={{margin:'0 0 .25rem'}}>Parceiros</h3>
-          <small>Parametrizações e filtros de parceiros.</small>
-        </div>
+      <Sprite
+        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif"
+        fallback="/img/pokemon/charmander.png"
+        alt="Charmander animado"
+        width="48"
+        height="48"
+        style={{imageRendering: 'pixelated'}}
+      />
+      <div>
+        <div style={{fontWeight: 800, fontSize: '1.12rem', color: '#b3541e'}}>Parceiros</div>
+        <div style={{opacity: .85}}>Parametrizações e filtros de parceiros.</div>
       </div>
-    </a>
+    </Link>
   </div>
-</div>
+</section>
+
+<style>{`
+  .param-card { transition: transform .12s ease, box-shadow .12s ease }
+  .param-card:hover { transform: translateY(-1px); box-shadow: 0 16px 36px rgba(0,0,0,.09) }
+`}</style>

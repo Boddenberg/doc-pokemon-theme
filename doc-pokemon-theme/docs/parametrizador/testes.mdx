@@ -1,0 +1,363 @@
+---
+sidebar_position: 1
+title: x tudão recursos visuais
+description: Template interativo e colorido para se inspirar e adaptar às suas docs.
+---
+
+import React, {useRef, useState} from 'react';
+import Mermaid from '@theme/Mermaid';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import Admonition from '@theme/Admonition';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+
+export default function ShowcaseTurbo() {
+  const [toast, setToast] = useState('');
+  const toastTimer = useRef(null);
+  const showToast = (t) => { setToast(t); clearTimeout(toastTimer.current); toastTimer.current = setTimeout(()=>setToast(''), 1700); };
+
+  const [compact, setCompact] = useState(false);
+  const [accent, setAccent] = useState('violet'); // 'violet' | 'teal' | 'orange'
+
+  const wrapRef = useRef(null);
+
+  const mermaidSeq = String.raw`%%{init: {"sequence":{"mirrorActors":false,"showSequenceNumbers":true}}}%%
+sequenceDiagram
+  title Jornada (exemplo inspiracional)
+  participant U as Usuário
+  participant Doc as Documentação
+  participant S as Serviço
+  U->>Doc: Acessa página
+  Note over Doc: Conteúdo visual • próximos passos claros
+  Doc-->>U: Mostra guia breve
+  U->>S: Executa tarefa
+  S-->>U: Retorna resultado
+  Note right of U: Usuário entende o que fazer em seguida`;
+
+  const mermaidSeqRaw = String.raw`sequenceDiagram
+  title Jornada (exemplo inspiracional)
+  participant U as Usuário
+  participant Doc as Documentação
+  participant S as Serviço
+  U->>Doc: Acessa página
+  Note over Doc: Conteúdo visual • próximos passos claros
+  Doc-->>U: Mostra guia breve
+  U->>S: Executa tarefa
+  S-->>U: Retorna resultado
+  Note right of U: Usuário entende o que fazer em seguida`;
+
+  const mermaidFlow = String.raw`flowchart LR
+  A[Entrada] --> B{Tem dados?}
+  B -- Não --> N[Exibir mensagem e encerrar]
+  B -- Sim --> C[Aplicar regras]
+  C -->|OK| D[Consultar serviço externo]
+  D -->|Aprovado| E[Concluir com sucesso]
+  D -->|Reprovado| R[Explicar próximo passo]`;
+
+  const chartData = [
+    {m:'Jan', visitas:1200}, {m:'Fev', visitas:1500}, {m:'Mar', visitas:1800},
+    {m:'Abr', visitas:1300}, {m:'Mai', visitas:2200}, {m:'Jun', visitas:1950},
+  ];
+
+  const css = String.raw`
+    :root {
+      --acc-violet: #7c3aed;
+      --acc-teal:   #0ea5e9;
+      --acc-orange: #fb8c00;
+    }
+    .page {
+      --acc: var(--acc-violet);
+    }
+    .page[data-accent="teal"]   { --acc: var(--acc-teal); }
+    .page[data-accent="orange"] { --acc: var(--acc-orange); }
+
+    .hero {
+      position: relative;
+      border-radius: 18px;
+      padding: 1.2rem 1.2rem 1rem;
+      background: linear-gradient(135deg,#e3f2fd 0%,#e8f5e9 50%,#fff3e0 100%);
+      border: 1px solid rgba(13,71,161,.12);
+      box-shadow: 0 10px 28px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+    .hero h1 { margin: .2rem 0 .15rem 0; line-height: 1.05; }
+    .hero .sub { opacity: .85; max-width: 70ch; }
+    .blob {
+      position: absolute; inset:auto -60px -60px auto; width: 240px; height: 240px; border-radius: 999px;
+      background: radial-gradient(closest-side, var(--acc) 0%, transparent 70%);
+      opacity:.18; filter: blur(12px);
+      transform: translate(0,0); animation: float 6s ease-in-out infinite alternate;
+    }
+    @keyframes float { to { transform: translate(-18px,-14px); } }
+
+    .controls {
+      display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; margin-top:.6rem;
+    }
+    .segmented { display:inline-flex; background:#fff; border:1px solid #e5eaf2; border-radius: 999px; overflow:hidden; box-shadow:0 6px 14px rgba(16,24,40,.06); }
+    .segmented button {
+      padding:.4rem .75rem; font-weight:700; font-size:.9rem; border:none; background:transparent; cursor:pointer;
+    }
+    .segmented button[data-active="1"] { background: var(--acc); color:#fff; }
+
+    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: .75rem; margin: 1rem 0; }
+    .card {
+      border-radius:14px; padding: var(--pad, 1rem); background:#fff; border:1px solid #eaeef4;
+      box-shadow: 0 8px 16px rgba(16,24,40,.06);
+    }
+    .card.gradient {
+      position:relative; border:1px solid transparent;
+      background:
+        linear-gradient(#fff,#fff) padding-box,
+        linear-gradient(135deg, var(--acc), #0ea5e9) border-box;
+    }
+    .pill { display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .6rem; border-radius:999px; background:#eef7ff; color:#0d3b66; border:1px solid #cfe6ff; font-weight:800; font-size:.8rem; }
+
+    .kpi { display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:.6rem; }
+    .kpi > div { background:#fff; border:1px solid #eaeef4; border-radius:12px; padding:.7rem .85rem; }
+    .kpi .n { font-weight:900; font-size:1.25rem; color: var(--acc); }
+
+    .wrap { background: rgba(255,255,255,.75); backdrop-filter: blur(6px); border-radius: 16px; border: 1px solid #e0e0e0; padding: 1rem; overflow:auto; }
+    .wrap svg { max-width:100%; height:auto; }
+
+    .actions { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:flex-end; margin-top:.6rem; }
+    .btn { appearance:none; border:1px solid rgba(13,71,161,.25); background:#fff; color:#0d47a1; border-radius:.8rem; padding:.6rem .9rem; font-weight:800; cursor:pointer; box-shadow:0 6px 12px rgba(0,0,0,.06); transition:transform .12s ease, filter .2s ease; }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.02); }
+    .btn.primary { background: linear-gradient(135deg, var(--acc) 0%, #0ea5e9 100%); color:#fff; border:1px solid rgba(255,255,255,.18); }
+
+    .timeline { position:relative; display:grid; gap:.75rem; padding-left: .6rem; }
+    .timeline:before { content:""; position:absolute; left: 8px; top:0; bottom:0; width: 2px; background: linear-gradient(var(--acc), transparent); opacity:.35; }
+    .timeline .item { position:relative; background:#fff; border:1px solid #eaeef4; border-radius:12px; padding:.8rem 1rem .75rem 1rem; }
+    .timeline .item:before { content:""; position:absolute; left:-.53rem; top:.9rem; width:12px; height:12px; border-radius:999px; background: var(--acc); box-shadow:0 0 0 3px rgba(14,165,233,.15); }
+
+    .zebra table { width:100%; border-collapse: collapse; }
+    .zebra th, .zebra td { padding:.6rem .5rem; border:1px solid #eaeef4; }
+    .zebra tbody tr:nth-child(odd) { background:#fafcff; }
+
+    .toast { position: fixed; right: 16px; bottom: 16px; z-index: 60; padding:.45rem .7rem; border-radius: 999px; background: rgba(28,32,48,.8); backdrop-filter: blur(8px); color: #f8fafc; font-weight: 800; font-size: .85rem; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 10px 30px rgba(0,0,0,.18); opacity: 0; transform: translateY(6px) scale(.98); pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .toast[data-show="1"] { opacity:.95; transform: translateY(0) scale(1); }
+
+    .page[data-compact="1"] .card { --pad: .75rem; }
+    .page[data-compact="1"] .hero { padding: .9rem 1rem; }
+
+    @media (prefers-color-scheme: dark) {
+      .card, .timeline .item, .kpi > div { background:#0f172a; border-color:#15213a; }
+      .wrap { background:rgba(2,6,23,.6); border-color:#1b2b4b; }
+      .zebra th, .zebra td { border-color:#1b2b4b; }
+      .zebra tbody tr:nth-child(odd) { background:#0b1223; }
+      .segmented { background:#0b1223; border-color:#1b2b4b; }
+      .btn { background:#0b1223; color:#e2e8f0; border-color:#1b2b4b; }
+      .pill { background:#0b1223; border-color:#1b2b4b; color:#9ec9ff; }
+      .hero { background: linear-gradient(135deg,#0b1223 0%,#0e1b2e 50%,#1a1f2c 100%); }
+      .blob { opacity:.25; }
+    }
+  `;
+
+  const exportSVG = () => {
+    const svg = wrapRef.current?.querySelector('svg');
+    if (!svg) return;
+    const xml = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([xml], {type:'image/svg+xml'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'diagrama.svg'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('SVG exportado ✓');
+  };
+
+  const exportPNG = async (scale=1) => {
+    const svg = wrapRef.current?.querySelector('svg');
+    if (!svg) return;
+    const vb = svg.viewBox?.baseVal ?? null;
+    const bbox = vb ? null : svg.getBBox?.();
+    const w = vb?.width || Math.ceil(bbox?.width || svg.clientWidth || 1200);
+    const h = vb?.height || Math.ceil(bbox?.height || svg.clientHeight || 600);
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(1, Math.floor(w * scale));
+    canvas.height = Math.max(1, Math.floor(h * scale));
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    const xml = new XMLSerializer().serializeToString(svg);
+    const url = URL.createObjectURL(new Blob([xml], {type:'image/svg+xml'}));
+    await new Promise((res)=>{
+      const img = new Image();
+      img.onload = ()=>{ ctx.drawImage(img,0,0,canvas.width,canvas.height); URL.revokeObjectURL(url); res(); };
+      img.src = url;
+    });
+    const png = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = png; a.download = scale===2?'diagrama@2x.png':'diagrama.png'; a.click();
+    showToast(scale===2?'PNG HD exportado ✓':'PNG exportado ✓');
+  };
+
+  return (
+    <div className="page" data-compact={compact ? '1' : '0'} data-accent={accent}>
+      <style>{css}</style>
+
+      <section className="hero">
+        <span className="pill">Showcase • Versão Turbo</span>
+        <h1>Documentação bonita, clara e interativa</h1>
+        <p className="sub">
+          Um template com visual moderno, blocos reaproveitáveis e micro-interações.
+          Copie os pedaços que gostar e adapte ao seu contexto.
+        </p>
+        <div className="controls">
+          <div className="segmented" role="tablist" aria-label="Tema de destaque">
+            <button onClick={()=>setAccent('violet')} data-active={accent==='violet'?'1':'0'}>Violeta</button>
+            <button onClick={()=>setAccent('teal')}   data-active={accent==='teal'?'1':'0'}>Ciano</button>
+            <button onClick={()=>setAccent('orange')} data-active={accent==='orange'?'1':'0'}>Laranja</button>
+          </div>
+          <div className="segmented" role="tablist" aria-label="Densidade">
+            <button onClick={()=>setCompact(false)} data-active={!compact?'1':'0'}>Conforto</button>
+            <button onClick={()=>setCompact(true)}  data-active={compact?'1':'0'}>Compacto</button>
+          </div>
+        </div>
+        <div className="blob" aria-hidden="true" />
+      </section>
+
+      <div className="grid">
+        <div className="card gradient">
+          <h3>🎯 Propósito</h3>
+          <p>Dizer claramente o <b>ganho do leitor</b> ao terminar a leitura. Menos ansiedade, mais fluxo.</p>
+        </div>
+        <div className="card gradient">
+          <h3>🧭 Orientação</h3>
+          <p>Mostre próximos passos, atalhos e alternativas. Use abas/accordion para não poluir.</p>
+        </div>
+        <div className="card gradient">
+          <h3>🧱 Blocos</h3>
+          <p>Cards, tabela, timeline, diagrama e KPIs prontos para copiar e colar.</p>
+        </div>
+        <div className="card gradient">
+          <h3>🎨 Consistência</h3>
+          <p>Estilo sob medida do tema, suporte a escuro e paleta de destaque variável.</p>
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>Variações por público</h2>
+        <Tabs>
+          <TabItem value="leigo" label="Leigo">
+            <ul>
+              <li>Use frases curtas e verbos de ação (<i>clique</i>, <i>escolha</i>, <i>confirme</i>).</li>
+              <li>Explique jargões em 1 linha quando inevitáveis.</li>
+            </ul>
+          </TabItem>
+          <TabItem value="negocio" label="Negócio">
+            <ul>
+              <li>Traga objetivos, riscos e critérios de sucesso.</li>
+              <li>Liste pré-requisitos e regras de decisão com clareza.</li>
+            </ul>
+          </TabItem>
+          <TabItem value="tecnico" label="Técnico">
+            <ul>
+              <li>Mostre diagramas e contratos mínimos, porém úteis.</li>
+              <li>Linke para referências, painéis e playbooks.</li>
+            </ul>
+          </TabItem>
+        </Tabs>
+      </div>
+
+      <div className="card">
+        <h2>Mapa visual (Mermaid)</h2>
+        <Admonition type="info" title="Dica de diagrama">
+          Prefira <b>um objetivo</b> por diagrama. Se virar “cheat sheet”, quebre em partes.
+        </Admonition>
+        <div className="wrap" ref={wrapRef}>
+          <Mermaid value={mermaidSeq} />
+        </div>
+        <div className="actions">
+          <button className="btn primary" onClick={exportSVG}>Exportar SVG</button>
+          <button className="btn" onClick={()=>exportPNG(1)}>PNG</button>
+          <button className="btn" onClick={()=>exportPNG(2)}>PNG HD</button>
+          <button className="btn" onClick={async()=>{await navigator.clipboard.writeText(mermaidSeqRaw); showToast('Mermaid copiado ✓');}}>Copiar Mermaid</button>
+        </div>
+
+        <details style={{marginTop:'.75rem'}}>
+          <summary><b>Alternativa:</b> fluxo de decisão</summary>
+          <div className="wrap"><Mermaid value={mermaidFlow} /></div>
+        </details>
+      </div>
+
+      <div className="grid">
+        <div className="card">
+          <h2>Timeline</h2>
+          <div className="timeline">
+            <div className="item"><b>1) Contexto curto</b> — 1–2 frases explicando o porquê desta página.</div>
+            <div className="item"><b>2) Passo a passo</b> — objetivos micro (4–6 bullets, no máx.).</div>
+            <div className="item"><b>3) Decisões</b> — “se A então B”; use callouts ou detalhes colapsáveis.</div>
+            <div className="item"><b>4) Próximos passos</b> — para onde o leitor vai agora?</div>
+          </div>
+        </div>
+        <div className="card zebra">
+          <h2>Comparativo rápido</h2>
+          <table>
+            <thead><tr><th>Opção</th><th>Prós</th><th>Contras</th></tr></thead>
+            <tbody>
+              <tr><td>Guia curto</td><td>Fácil de ler</td><td>Pode faltar detalhe</td></tr>
+              <tr><td>Guia completo</td><td>Menos dúvidas</td><td>Mais denso</td></tr>
+              <tr><td>Abas por público</td><td>Enfoque correto</td><td>Exige curadoria</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>Indicadores (exemplo)</h2>
+        <div className="kpi">
+          <div><div className="n">↑ 24%</div><small>Leitura até o fim</small></div>
+          <div><div className="n">-18%</div><small>Dúvidas recorrentes</small></div>
+          <div><div className="n">+32%</div><small>Clique em próximos passos</small></div>
+        </div>
+        <div style={{width:'100%', height:240}}>
+          <ResponsiveContainer>
+            <AreaChart data={chartData} margin={{left:8,right:8,top:8,bottom:8}}>
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="var(--acc)" stopOpacity={0.5}/>
+                  <stop offset="100%" stopColor="var(--acc)" stopOpacity={0.05}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="m" />
+              <YAxis />
+              <Tooltip />
+              <Area type="monotone" dataKey="visitas" stroke="var(--acc)" fill="url(#g)" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div className="grid">
+        <div className="card">
+          <h2>FAQ rápido</h2>
+          <details open><summary><b>Como adapto esta página?</b></summary><p>Duplique o arquivo e troque os blocos/cores conforme seu tema.</p></details>
+          <details><summary><b>Posso dividir em várias páginas?</b></summary><p>Sim — quando o conteúdo ficar heterogêneo ou longo.</p></details>
+          <details><summary><b>Como manter vivo?</b></summary><p>Atualize com pequenos increments e registre “próximos passos”.</p></details>
+        </div>
+        <div className="card">
+          <h2>Snippet útil (copiar)</h2>
+          <CodeBlock language="md">{`> Pro tip: se ficar longo, quebre em blocos curtos e linke para continuidade.`}</CodeBlock>
+          <div className="actions">
+            <button className="btn" onClick={async()=>{await navigator.clipboard.writeText('> Pro tip: se ficar longo, quebre em blocos curtos e linke para continuidade.'); showToast('Snippet copiado ✓');}}>Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>Próximos passos</h2>
+        <ul>
+          <li>Transforme os blocos que mais gostou em componentes (reuso total).</li>
+          <li>Defina 1–2 diagramas por página — e sempre com ação final clara.</li>
+          <li>Evite “muro de texto”: prefira grids, listas e detalhes colapsáveis.</li>
+        </ul>
+        <Admonition type="tip" title="Mantenha simples">
+          É melhor publicar pequeno e iterar constantemente do que esperar o perfeito.
+        </Admonition>
+      </div>
+
+      <div className="toast" data-show={toast ? '1' : '0'}>{toast}</div>
+    </div>
+  );
+}
+

@@ -24,6 +24,17 @@ const config = {
   themes: ['@docusaurus/theme-mermaid'],
   markdown: { mermaid: true },
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          { from: ['/docs/intro', '/docs'], to: '/docs/parametrizador/pagina-inicial' },
+        ],
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -61,7 +72,7 @@ const config = {
         {
           title: 'Conteúdo',
           items: [
-            { label: 'Documentação', to: '/docs/intro' },
+            { label: 'Documentação', to: '/docs/parametrizador/pagina-inicial' },
             { label: 'Blog', to: '/blog' },
           ],
         },
@@ -74,7 +85,9 @@ const config = {
         },
         {
           title: 'Código',
-          items: [{ label: 'GitHub', href: 'https://github.com/Boddenberg/doc-pokemon-theme' }],
+          items: [
+            { label: 'GitHub', href: 'https://github.com/Boddenberg/doc-pokemon-theme' },
+          ],
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Doc Pokémon. Feito com ❤️ por um Treinador Pokémon usando Docusaurus.`,

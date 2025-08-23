@@ -70,3 +70,87 @@
 .theme-doc-markdown pre::-webkit-scrollbar-track {
   background-color: #e0f7fa;
 }
+
+/* Container da sidebar */
+.theme-doc-sidebar-container {
+  background: var(--ifm-background-surface-color);
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: none;
+}
+
+/* Menu geral */
+.theme-doc-sidebar-menu,
+.menu {
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+}
+
+/* Itens e links: cantos suaves, cores neutras e hover elegante */
+.menu__link {
+  border-radius: 6px;
+  transition: background-color .18s ease, color .18s ease, box-shadow .18s ease;
+  padding: 0.5rem 0.6rem;
+}
+
+/* Hover */
+.menu__link:hover {
+  background: var(--ifm-hover-overlay);
+  color: inherit;
+  box-shadow: 0 0 0 1px var(--ifm-color-emphasis-200) inset;
+}
+
+/* Ativo: barra de 3px à esquerda + leve realce */
+.menu__link--active {
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
+  box-shadow:
+    inset 3px 0 0 var(--ifm-color-primary),
+    0 0 0 1px color-mix(in srgb, var(--ifm-color-primary) 18%, var(--ifm-color-emphasis-200));
+  color: var(--ifm-font-color-base);
+}
+
+/* Categorias colapsáveis ficam com o mesmo visual dos links */
+.menu__list-item-collapsible .menu__link {
+  border-radius: 6px;
+}
+
+/* Espaçamento entre itens */
+.menu__list .menu__list-item {
+  margin: 2px 0;
+}
+
+/* Subníveis um pouco indentados e com linha guia sutil */
+.menu__list .menu__list {
+  margin-left: 0.45rem;
+  border-left: 1px dashed var(--ifm-color-emphasis-200);
+  padding-left: 0.6rem;
+}
+
+/* Scrollbar discreta só na sidebar */
+.theme-doc-sidebar-menu::-webkit-scrollbar {
+  width: 8px;
+}
+.theme-doc-sidebar-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-doc-sidebar-menu::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ifm-color-emphasis-400) 50%, transparent);
+  border-radius: 8px;
+}
+.theme-doc-sidebar-menu:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ifm-color-emphasis-700) 60%, transparent);
+}
+
+/* Dark mode: pequenos ajustes para manter o contraste */
+html[data-theme='dark'] .menu__link:hover {
+  box-shadow: 0 0 0 1px var(--ifm-color-emphasis-300) inset;
+}
+html[data-theme='dark'] .menu__link--active {
+  background: color-mix(in srgb, var(--ifm-color-primary) 12%, transparent);
+  box-shadow:
+    inset 3px 0 0 var(--ifm-color-primary),
+    0 0 0 1px color-mix(in srgb, var(--ifm-color-primary) 24%, var(--ifm-color-emphasis-300));
+}
+
+/* Classe opcional para sua categoria principal (neutro e sutil) */
+.sb-cat .menu__link--active {
+  font-weight: 700;
+}

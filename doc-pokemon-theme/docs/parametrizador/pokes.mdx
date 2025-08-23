@@ -1,0 +1,158 @@
+---
+sidebar_position: 2
+hide_title: true
+hide_table_of_contents: true
+---
+
+import React, {useMemo, useState} from 'react';
+
+export const BASE =
+  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated';
+
+export const VARIANTS = [
+  {key: 'front', label: 'Frente', path: ''},
+  {key: 'back', label: 'Costas', path: 'back'},
+  {key: 'shiny', label: 'Shiny', path: 'shiny'},
+  {key: 'female', label: 'Fêmea', path: 'female'},
+  {key: 'back_shiny', label: 'Costas • Shiny', path: 'back/shiny'},
+  {key: 'back_female', label: 'Costas • Fêmea', path: 'back/female'},
+  {key: 'shiny_female', label: 'Shiny • Fêmea', path: 'shiny/female'},
+  {key: 'back_shiny_female', label: 'Costas • Shiny • Fêmea', path: 'back/shiny/female'},
+];
+
+export const RANGES = [
+  {key: 'kanto', label: 'Kanto (001–151)', start: 1, end: 151},
+  {key: 'johto', label: 'Johto (152–251)', start: 152, end: 251},
+  {key: 'hoenn', label: 'Hoenn (252–386)', start: 252, end: 386},
+  {key: 'sinnoh', label: 'Sinnoh (387–493)', start: 387, end: 493},
+  {key: 'unova', label: 'Unova (494–649)', start: 494, end: 649},
+];
+
+export function tileUrl(id, variantPath) {
+  const clean = variantPath ? `/${variantPath}` : '';
+  return `${BASE}${clean}/${id}.gif`;
+}
+
+export function Sprite({id, variantPath}) {
+  const [hidden, setHidden] = useState(false);
+  const src = tileUrl(id, variantPath);
+  if (hidden) return null;
+  return (
+    <div style={{
+      border: '1px solid #e8ecf3',
+      background: '#fff',
+      borderRadius: 12,
+      padding: '10px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 8
+    }}>
+      <img
+        src={src}
+        alt={`#${String(id).padStart(3, '0')}`}
+        width="72"
+        height="72"
+        loading="lazy"
+        style={{imageRendering: 'pixelated'}}
+        onError={() => setHidden(true)}
+      />
+      <div style={{fontWeight: 600, fontSize: 12, opacity: .8}}>
+        #{String(id).padStart(3, '0')}
+      </div>
+      <button
+        onClick={() => navigator.clipboard && navigator.clipboard.writeText(src)}
+        style={{
+          fontSize: 12, padding: '4px 8px', borderRadius: 8, border: '1px solid #dfe5ee',
+          background: '#f8fbff', cursor: 'pointer'
+        }}
+      >
+        Copiar URL
+      </button>
+    </div>
+  );
+}
+
+export function Gallery() {
+  const [variant, setVariant] = useState('front');
+  const [range, setRange] = useState('kanto');
+  const [customStart, setCustomStart] = useState('');
+  const [customEnd, setCustomEnd] = useState('');
+  const [cols, setCols] = useState(8);
+
+  const current = useMemo(() => {
+    return RANGES.find(r => r.key === range) || RANGES[0];
+  }, [range]);
+
+  const [start, end] = useMemo(() => {
+    const s = Number(customStart) || current.start;
+    const e = Number(customEnd) || current.end;
+    return [Math.max(1, s), Math.min(9999, e)];
+  }, [current, customStart, customEnd]);
+
+  const ids = useMemo(() => Array.from({length: end - start + 1}, (_, i) => start + i), [start, end]);
+
+  const variantPath = useMemo(() => {
+    const v = VARIANTS.find(v => v.key === variant);
+    return v ? v.path : '';
+  }, [variant]);
+
+  return (
+    <section style={{padding: '8px 0 16px'}}>
+      <div style={{
+        background: 'linear-gradient(135deg,#eef6ff,#f1fbf2,#fff4e6)',
+        border: '1px solid #e9eef5',
+        borderRadius: 16,
+        padding: '14px 16px',
+        marginBottom: 12
+      }}>
+        <h1 style={{margin: 0}}>Vitrine de neces...pokémons :D</h1>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: 12,
+          marginTop: 12
+        }}>
+          <label style={{display: 'flex', flexDirection: 'column', gap: 6}}>
+            <span style={{fontSize: 12, opacity: .75}}>Variante</span>
+            <select value={variant} onChange={e => setVariant(e.target.value)} style={{padding: 8, borderRadius: 8}}>
+              {VARIANTS.map(v => <option key={v.key} value={v.key}>{v.label}</option>)}
+            </select>
+          </label>
+          <label style={{display: 'flex', flexDirection: 'column', gap: 6}}>
+            <span style={{fontSize: 12, opacity: .75}}>Geração</span>
+            <select value={range} onChange={e => setRange(e.target.value)} style={{padding: 8, borderRadius: 8}}>
+              {RANGES.map(r => <option key={r.key} value={r.key}>{r.label}</option>)}
+            </select>
+          </label>
+          <label style={{display: 'flex', flexDirection: 'column', gap: 6}}>
+            <span style={{fontSize: 12, opacity: .75}}>Faixa personalizada (opcional)</span>
+            <div style={{display: 'flex', gap: 8}}>
+              <input placeholder="Início" value={customStart} onChange={e => setCustomStart(e.target.value)} style={{padding: 8, borderRadius: 8, width: 96}} />
+              <input placeholder="Fim" value={customEnd} onChange={e => setCustomEnd(e.target.value)} style={{padding: 8, borderRadius: 8, width: 96}} />
+            </div>
+          </label>
+          <label style={{display: 'flex', flexDirection: 'column', gap: 6}}>
+            <span style={{fontSize: 12, opacity: .75}}>Colunas</span>
+            <input type="number" min={3} max={12} value={cols} onChange={e => setCols(Number(e.target.value) || 8)} style={{padding: 8, borderRadius: 8, width: 96}} />
+          </label>
+        </div>
+      </div>
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+        gap: 10
+      }}>
+        {ids.map(id => (
+          <Sprite key={`${variant}-${id}`} id={id} variantPath={variantPath} />
+        ))}
+      </div>
+
+    </section>
+  );
+}
+
+export default function Page() {
+  return <Gallery />;
+}
